@@ -2,27 +2,31 @@ import WidgetKit
 import SwiftUI
 
 /// Lock Screen widget for the item the user pinned in Add/Edit. Deliberately
-/// carries only an id across the App Group boundary (Shared/AppGroupBridge)
-/// — never the pinned item's name, category, or value. The widget is a
-/// shortcut, not a display: tapping it opens the app via `lifevars://reveal`
-/// and still goes through the normal Face ID session gate (§2) before
-/// RevealView shows anything.
+/// carries only an id and a category across the App Group boundary
+/// (Shared/AppGroupBridge) — never the pinned item's name or value. The
+/// category is a bounded, deliberate exception weighed directly against
+/// showing the actual name: enough to glance-recognize which pin it is
+/// (e.g. a car emoji for a Vehicle-category item), never enough to expose
+/// what it actually is. The widget is a shortcut, not a display: tapping it
+/// opens the app via `lifevars://reveal` and still goes through the normal
+/// Face ID session gate (§2) before RevealView shows anything.
 struct PinnedVariableEntry: TimelineEntry {
     let date: Date
     let pinnedItemID: UUID?
+    let category: Category?
 }
 
 struct PinnedVariableProvider: TimelineProvider {
     func placeholder(in context: Context) -> PinnedVariableEntry {
-        PinnedVariableEntry(date: Date(), pinnedItemID: UUID())
+        PinnedVariableEntry(date: Date(), pinnedItemID: UUID(), category: .vehicle)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (PinnedVariableEntry) -> Void) {
-        completion(PinnedVariableEntry(date: Date(), pinnedItemID: WidgetBridge.pinnedItemID))
+        completion(PinnedVariableEntry(date: Date(), pinnedItemID: WidgetBridge.pinnedItemID, category: WidgetBridge.pinnedItemCategory))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<PinnedVariableEntry>) -> Void) {
-        let entry = PinnedVariableEntry(date: Date(), pinnedItemID: WidgetBridge.pinnedItemID)
+        let entry = PinnedVariableEntry(date: Date(), pinnedItemID: WidgetBridge.pinnedItemID, category: WidgetBridge.pinnedItemCategory)
         // Pin state only ever changes from inside the app (Add/Edit), which
         // calls WidgetCenter.shared.reloadTimelines itself — no need for a
         // scheduled refresh here.
@@ -47,16 +51,18 @@ struct PinnedVariableWidgetView: View {
             }
     }
 
-    /// Same brand mark as LockScreenView/the Watch app's ask screen — a
-    /// literal "{ = }" glyph, not an SF Symbol. Always reads "LifeVars",
-    /// pinned or not; tap behavior (via widgetURL above) is what actually
-    /// differs when nothing's pinned yet.
+    /// Top line is the same brand mark as LockScreenView/the Watch app's
+    /// ask screen. Bottom line plays on that same "{ = }" variable motif —
+    /// "LifeVars" assigned to a category emoji instead of the item's real
+    /// name, the deliberate ceiling described above.
     private var content: some View {
         VStack(spacing: 2) {
             Text("{ = }")
-                .font(.system(size: 16, weight: .medium, design: .monospaced))
-            Text("LifeVars")
-                .font(.system(size: 10))
+                .font(.system(size: 14, weight: .medium, design: .monospaced))
+            Text("{ LifeVars = \(entry.category?.emoji ?? "?") }")
+                .font(.system(size: 9, weight: .medium, design: .monospaced))
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
         }
         .widgetAccentable()
     }

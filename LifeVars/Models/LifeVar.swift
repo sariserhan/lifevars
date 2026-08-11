@@ -1,29 +1,6 @@
 import Foundation
 import SwiftData
 
-/// SPEC.md §9.1 categories — metadata for icons/suggestions, and (per later
-/// product direction) an optional manual pick + display grouping in Home.
-/// Still never a folder in the storage sense: every item lives in one flat
-/// store regardless of category, grouping is purely a Home display mode.
-enum Category: String, Codable, CaseIterable, Hashable {
-    case identity, vehicle, home, business, insurance, financial, membership, other
-
-    var label: String { rawValue.capitalized }
-
-    var symbolName: String {
-        switch self {
-        case .identity: return "person.text.rectangle.fill"
-        case .vehicle: return "car.fill"
-        case .home: return "house.fill"
-        case .business: return "building.2.fill"
-        case .insurance: return "cross.case.fill"
-        case .financial: return "banknote.fill"
-        case .membership: return "person.crop.circle.badge.checkmark"
-        case .other: return "tag.fill"
-        }
-    }
-}
-
 /// Cosmetic display transform only — never changes the stored value. Derived
 /// from Classification at Add time and carried in the encrypted metadata so
 /// Reveal doesn't have to re-guess it from the name every time.

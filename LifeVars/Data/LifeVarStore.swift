@@ -114,9 +114,12 @@ final class LifeVarStore: ObservableObject {
         }
         // §3 — most-recently-accessed first; falls back to createdAt for never-revealed items.
         items = decrypted.sorted { $0.1 > $1.1 }.map(\.0)
-        // Widgets/PinnedVariableWidget.swift reads this across the App Group
-        // boundary — only ever an id, never the pinned item's name or value.
-        WidgetBridge.pinnedItemID = items.first(where: \.isPinned)?.id
+        // Widgets/PinnedVariableWidget.swift reads these across the App
+        // Group boundary — an id and a category, never the pinned item's
+        // name or value.
+        let pinned = items.first(where: \.isPinned)
+        WidgetBridge.pinnedItemID = pinned?.id
+        WidgetBridge.pinnedItemCategory = pinned?.category
         // The widget's own Timeline policy is .never — it only re-renders
         // when told to. Without this, a widget already on the Lock Screen
         // would keep showing whatever it rendered the first time it was

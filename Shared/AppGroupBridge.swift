@@ -16,6 +16,7 @@ enum WidgetBridge {
 
     private enum Key {
         static let pinnedItemID = "widget.pinnedItemID"
+        static let pinnedItemCategory = "widget.pinnedItemCategory"
         static let pendingActivateVoice = "widget.pendingActivateVoice"
     }
 
@@ -30,6 +31,18 @@ enum WidgetBridge {
             return UUID(uuidString: raw)
         }
         set { defaults?.set(newValue?.uuidString, forKey: Key.pinnedItemID) }
+    }
+
+    /// Category only, by direct request after weighing it against showing
+    /// the pinned item's actual name — a category hint is a deliberate,
+    /// bounded middle ground: enough to glance-recognize which pin it is,
+    /// never enough to expose what it actually is.
+    static var pinnedItemCategory: Category? {
+        get {
+            guard let raw = defaults?.string(forKey: Key.pinnedItemCategory) else { return nil }
+            return Category(rawValue: raw)
+        }
+        set { defaults?.set(newValue?.rawValue, forKey: Key.pinnedItemCategory) }
     }
 
     /// Set by the Control Center "Ask LifeVars" control's AppIntent, which

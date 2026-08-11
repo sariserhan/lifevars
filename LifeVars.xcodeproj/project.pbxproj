@@ -30,9 +30,11 @@
 		6FA5612EA038990DF5CA7E4B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201A2D41BAA33B5F44B64828 /* UserSettings.swift */; };
 		71425BC2FF1A5ECBD09D519D /* LifeVarsWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB212440254172C9991EAA /* LifeVarsWidgetsBundle.swift */; };
 		76C8B0E72C48CEC932D8A94D /* PinnedVariableWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CEE14EEC627EEF47223CAF /* PinnedVariableWidget.swift */; };
-		7A2C688963877EFD64E4EEE1 /* LifeVars.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 93CAA90EEFC965F4975AA737 /* LifeVars.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7A2C688963877EFD64E4EEE1 /* LifeVarsWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7A34326F385B8D620E3653A5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F88588BCE6229B980721E2 /* Persistence.swift */; };
 		7B9C4FB51DE95F8C10C936CA /* AppSwitcherOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37B41AAA24D12153F765F7C /* AppSwitcherOverlay.swift */; };
+		7CEDDBFFBF49C8B5DF342595 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF2F6855AA65D8D77F2B14 /* Category.swift */; };
+		80CEC4AD0D03D97A77811E05 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF2F6855AA65D8D77F2B14 /* Category.swift */; };
 		865519FF59A12A6557196E61 /* EmergencyPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46BF0E7336792F6D7247CC /* EmergencyPayload.swift */; };
 		871C918DA9D796C211C5D293 /* LifeVarsWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71159F9569324E678D0C20D0 /* LifeVarsWatchApp.swift */; };
 		8BDEEC8C240A9B22DDDB24FD /* LifeVarLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE4BE49869F7A186741F89 /* LifeVarLookup.swift */; };
@@ -84,7 +86,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				7A2C688963877EFD64E4EEE1 /* LifeVars.app in Embed Watch Content */,
+				7A2C688963877EFD64E4EEE1 /* LifeVarsWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,7 +121,8 @@
 		517F2D03AE2B3D1B2B224F29 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		577B575935E7A60437412E81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5D1C07413D7B2026291B739D /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
-		6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LifeVarsWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = LifeVarsWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		63CF2F6855AA65D8D77F2B14 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		653B14D01305D62FEF30BABB /* CheckLifeVarIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLifeVarIntent.swift; sourceTree = "<group>"; };
 		653F29AB520F3FED0FC11D2B /* ExpirationNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationNotifier.swift; sourceTree = "<group>"; };
 		6F9BC73741BB17583BF82707 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -135,7 +138,7 @@
 		84AEEC46671E479676DBA63D /* Matcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
 		8A00CBC7BCB60AD82B96696A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		8BE9D2C06F8E83CBA99C604F /* CryptoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoBox.swift; sourceTree = "<group>"; };
-		93CAA90EEFC965F4975AA737 /* LifeVars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeVars.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeVarsWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97CEE14EEC627EEF47223CAF /* PinnedVariableWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedVariableWidget.swift; sourceTree = "<group>"; };
 		99D90AFABCA820781AFB3BB7 /* LifeVarSnippetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarSnippetView.swift; sourceTree = "<group>"; };
 		A598A5D26E808D401A8DBCDD /* LifeVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVar.swift; sourceTree = "<group>"; };
@@ -144,7 +147,7 @@
 		BFC175F7A47E29A1FCCF188B /* PhoneConnectivitySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivitySession.swift; sourceTree = "<group>"; };
 		D0BB212440254172C9991EAA /* LifeVarsWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarsWidgetsBundle.swift; sourceTree = "<group>"; };
 		D4259D0122770A727EE22D7A /* KeychainDEKStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDEKStore.swift; sourceTree = "<group>"; };
-		D60948F15726BA8DFED2B077 /* LifeVars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeVars.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D60948F15726BA8DFED2B077 /* LifeVars.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LifeVars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D84D5C65203CD588C11CD4D8 /* VoiceRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecognizer.swift; sourceTree = "<group>"; };
 		D9E86B4534C3BAB134F3EBC5 /* LifeVarsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarsApp.swift; sourceTree = "<group>"; };
 		E37B41AAA24D12153F765F7C /* AppSwitcherOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSwitcherOverlay.swift; sourceTree = "<group>"; };
@@ -260,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				1F6B9F3AE9D2EB6533C8FCF8 /* AppGroupBridge.swift */,
+				63CF2F6855AA65D8D77F2B14 /* Category.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -323,7 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				D60948F15726BA8DFED2B077 /* LifeVars.app */,
-				93CAA90EEFC965F4975AA737 /* LifeVars.app */,
+				93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */,
 				6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */,
 			);
 			name = Products;
@@ -434,7 +438,7 @@
 			packageProductDependencies = (
 			);
 			productName = LifeVarsWatch;
-			productReference = 93CAA90EEFC965F4975AA737 /* LifeVars.app */;
+			productReference = 93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E321D9043B9ACABE47A52DB6 /* LifeVarsWidgets */ = {
@@ -461,7 +465,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2660;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 731DB88C2A8DF454034B295F /* Build configuration list for PBXProject "LifeVars" */;
 			developmentRegion = en;
@@ -510,6 +516,7 @@
 			files = (
 				C2037B87C68113807C4592CF /* AppGroupBridge.swift in Sources */,
 				64B3CA69E6D22ADD9745DA3C /* AskLifeVarsControl.swift in Sources */,
+				7CEDDBFFBF49C8B5DF342595 /* Category.swift in Sources */,
 				71425BC2FF1A5ECBD09D519D /* LifeVarsWidgetsBundle.swift in Sources */,
 				76C8B0E72C48CEC932D8A94D /* PinnedVariableWidget.swift in Sources */,
 			);
@@ -532,6 +539,7 @@
 				9E476282DE0932E202A88465 /* AddVariableView.swift in Sources */,
 				6B6DC2C59EEA886E732434A1 /* AppGroupBridge.swift in Sources */,
 				7B9C4FB51DE95F8C10C936CA /* AppSwitcherOverlay.swift in Sources */,
+				80CEC4AD0D03D97A77811E05 /* Category.swift in Sources */,
 				1A4041D2B68D7BC13BF427AB /* CheckLifeVarIntent.swift in Sources */,
 				35EF3F374862196F04E70782 /* Classification.swift in Sources */,
 				1E12D65A955DD111FD9B0C32 /* CryptoBox.swift in Sources */,
@@ -593,7 +601,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVarsWatch/Info.plist;
 				MARKETING_VERSION = 1.0;
@@ -612,7 +619,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVarsWatch/Info.plist;
 				MARKETING_VERSION = 1.0;
@@ -630,7 +636,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -661,11 +666,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -685,7 +688,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -697,7 +699,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -728,11 +729,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -745,7 +744,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -760,7 +758,6 @@
 				CODE_SIGN_ENTITLEMENTS = LifeVars/LifeVars.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVars/Info.plist;
@@ -783,7 +780,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = LifeVarsWidgets/LifeVarsWidgets.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVarsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -809,7 +805,6 @@
 				CODE_SIGN_ENTITLEMENTS = LifeVars/LifeVars.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVars/Info.plist;
@@ -832,7 +827,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = LifeVarsWidgets/LifeVarsWidgets.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA24C6W48D;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LifeVarsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
