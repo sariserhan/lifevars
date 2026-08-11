@@ -138,12 +138,12 @@ Shown: on cold launch (after onboarding), and any time the app returns to foregr
 │                             │
 │       LifeVars               │
 │                             │
-│     [ Face ID prompt ]      │
+│         [ Unlock ]          │
 │                             │
 └────────────────────────────┘
 ```
 
-- On appear, immediately calls `evaluatePolicy` — no button tap needed to trigger it (the screen itself *is* the prompt).
+- Unlocking is always a deliberate tap, never something that fires just from this screen appearing — cold launch, returning from background, and after the manual lock button (§0) all land here showing the same `[ Unlock ]` button, not an automatic Face ID prompt. Tapping it calls `evaluatePolicy`.
 - **Success** → decrypt the name/alias index into memory (§17), mark session unlocked, show Home.
 - **Failure/cancel** → stay on LockScreen:
   ```

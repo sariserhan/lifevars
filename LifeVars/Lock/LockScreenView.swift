@@ -1,7 +1,10 @@
 import SwiftUI
 
-/// SPEC.md §2.1 — the screen itself is the prompt; it fires evaluatePolicy on
-/// appear, no button tap required for the first attempt.
+/// SPEC.md §2.1 — unlocking is a deliberate tap, not something that fires
+/// just from this screen appearing. Face ID/passcode only ever runs in
+/// response to you tapping Unlock (or Try Again/Use Passcode after a
+/// failure) — every time this screen shows, cold launch, returning from
+/// background, or after the manual lock button, the same way.
 struct LockScreenView: View {
     @EnvironmentObject private var session: SessionManager
     @State private var isAttempting = false
@@ -27,6 +30,13 @@ struct LockScreenView: View {
                     attemptUnlock()
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(isAttempting)
+            } else {
+                Button(isAttempting ? "Authenticating\u{2026}" : "Unlock") {
+                    attemptUnlock()
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(isAttempting)
             }
 
             Spacer()
@@ -39,7 +49,6 @@ struct LockScreenView: View {
             .foregroundStyle(.secondary)
             .padding(.bottom, 12)
         }
-        .task { attemptUnlock() }
         .sheet(isPresented: $isShowingEmergencyAccess) {
             EmergencyAccessView()
         }
