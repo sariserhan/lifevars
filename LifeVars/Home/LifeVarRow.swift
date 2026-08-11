@@ -14,6 +14,8 @@ struct LifeVarRow: View {
 
     @State private var isShowingAliases = false
     @State private var isShowingExpiration = false
+    @State private var isShowingEmergencyInfo = false
+    @State private var isShowingPinInfo = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -52,10 +54,8 @@ struct LifeVarRow: View {
         }
     }
 
-    /// Small status icons — aliases and expiration are tappable (each opens
-    /// a popover anchored to that exact button); Emergency Access and Pin
-    /// are plain indicators, since their state is already visible/editable
-    /// from Edit and there's no extra detail to surface here.
+    /// Every badge is tappable — each opens a popover anchored to that
+    /// exact button explaining what it means, same pattern for all four.
     private var badges: some View {
         HStack(spacing: 10) {
             if !item.aliases.isEmpty {
@@ -83,12 +83,34 @@ struct LifeVarRow: View {
                 }
             }
             if item.isEmergencyAccessible {
-                Image(systemName: "staroflife.fill")
-                    .accessibilityLabel("Emergency accessible")
+                Button {
+                    isShowingEmergencyInfo = true
+                } label: {
+                    Image(systemName: "staroflife.fill")
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Emergency accessible")
+                .popover(isPresented: $isShowingEmergencyInfo) {
+                    infoPopover(
+                        title: "Emergency Access",
+                        message: "Visible from the Lock Screen without Face ID — for things like blood type or an emergency contact. Turn this off in Edit if you don't want that anymore."
+                    )
+                }
             }
             if item.isPinned {
-                Image(systemName: "pin.fill")
-                    .accessibilityLabel("Pinned to Lock Screen")
+                Button {
+                    isShowingPinInfo = true
+                } label: {
+                    Image(systemName: "pin.fill")
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Pinned to Lock Screen")
+                .popover(isPresented: $isShowingPinInfo) {
+                    infoPopover(
+                        title: "Pinned to Lock Screen",
+                        message: "Shown as a shortcut widget — it only ever displays a generic locked icon, never this item's name or value. Face ID is still required to open it."
+                    )
+                }
             }
         }
         .font(.caption)
@@ -119,6 +141,23 @@ struct LifeVarRow: View {
             }
         }
         .padding()
+        .presentationCompactAdaptation(.popover)
+    }
+
+    /// Shared shape for the two plain-explanation badges (Emergency Access,
+    /// Pin) — aliases/expiration show actual per-item data instead, so they
+    /// keep their own dedicated layouts above.
+    private func infoPopover(title: String, message: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(message)
+                .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding()
+        .frame(maxWidth: 260, alignment: .leading)
         .presentationCompactAdaptation(.popover)
     }
 }
