@@ -112,3 +112,6 @@ Features added after the original 16-step plan closed out, in response to direct
 - [x] **Emergency Access and Pin badges are now tappable too** — same popover pattern as aliases/expiration, explaining what each badge means ("Visible from the Lock Screen without Face ID..." / "Shown as a shortcut widget..."), reusing existing in-app copy for consistency. New shared `LifeVarRow.infoPopover(title:message:)` for these two plain-text explanations, since aliases/expiration show actual per-item data and keep their own dedicated layouts.
   - Verified: `LifeVars` scheme builds clean.
   - **Not verified live**: not yet exercised on-device.
+- [x] **Polish pass, per direct feedback** — `LockScreenView`'s "Unlock" button is now a circular icon button (a lock glyph in a filled circle, small caption underneath) instead of a plain bordered-prominent text button. The Emergency Access / Pin badge popovers were cut from a two-line title+paragraph down to a single short phrase ("No Face ID needed" / "Lock Screen shortcut") — aliases/expiration keep their own layouts since they show real per-item data, not just an explanation.
+  - Verified: `LifeVars` scheme builds clean.
+  - **Not verified live**: not yet exercised on-device.

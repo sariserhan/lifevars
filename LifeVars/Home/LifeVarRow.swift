@@ -91,10 +91,7 @@ struct LifeVarRow: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Emergency accessible")
                 .popover(isPresented: $isShowingEmergencyInfo) {
-                    infoPopover(
-                        title: "Emergency Access",
-                        message: "Visible from the Lock Screen without Face ID — for things like blood type or an emergency contact. Turn this off in Edit if you don't want that anymore."
-                    )
+                    infoPopover("No Face ID needed")
                 }
             }
             if item.isPinned {
@@ -106,10 +103,7 @@ struct LifeVarRow: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Pinned to Lock Screen")
                 .popover(isPresented: $isShowingPinInfo) {
-                    infoPopover(
-                        title: "Pinned to Lock Screen",
-                        message: "Shown as a shortcut widget — it only ever displays a generic locked icon, never this item's name or value. Face ID is still required to open it."
-                    )
+                    infoPopover("Lock Screen shortcut")
                 }
             }
         }
@@ -147,17 +141,10 @@ struct LifeVarRow: View {
     /// Shared shape for the two plain-explanation badges (Emergency Access,
     /// Pin) — aliases/expiration show actual per-item data instead, so they
     /// keep their own dedicated layouts above.
-    private func infoPopover(title: String, message: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text(message)
-                .font(.subheadline)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .padding()
-        .frame(maxWidth: 260, alignment: .leading)
-        .presentationCompactAdaptation(.popover)
+    private func infoPopover(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline)
+            .padding()
+            .presentationCompactAdaptation(.popover)
     }
 }

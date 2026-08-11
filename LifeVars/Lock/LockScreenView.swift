@@ -32,11 +32,21 @@ struct LockScreenView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(isAttempting)
             } else {
-                Button(isAttempting ? "Authenticating\u{2026}" : "Unlock") {
-                    attemptUnlock()
+                Button(action: attemptUnlock) {
+                    VStack(spacing: 10) {
+                        Image(systemName: isAttempting ? "lock.open.fill" : "lock.fill")
+                            .font(.system(size: 26, weight: .medium))
+                            .foregroundStyle(.white)
+                            .frame(width: 64, height: 64)
+                            .background(Circle().fill(Color.accentColor))
+                        Text(isAttempting ? "Authenticating\u{2026}" : "Unlock")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.plain)
                 .disabled(isAttempting)
+                .opacity(isAttempting ? 0.6 : 1)
             }
 
             Spacer()
