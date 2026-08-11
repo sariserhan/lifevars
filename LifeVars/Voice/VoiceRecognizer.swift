@@ -34,7 +34,7 @@ final class VoiceRecognizer: ObservableObject {
 
     func start(onFinish: @escaping (String) -> Void) {
         guard isAvailable else {
-            state = .unavailable(reason: "Voice isn't available on this device.")
+            showUnavailable("Voice isn't available on this device.")
             return
         }
         self.onFinish = onFinish
@@ -44,19 +44,33 @@ final class VoiceRecognizer: ObservableObject {
             Task { @MainActor in
                 guard let self else { return }
                 guard authStatus == .authorized else {
-                    self.state = .unavailable(reason: "Enable Speech Recognition access in Settings.")
+                    self.showUnavailable("Enable Speech Recognition access in Settings.")
                     return
                 }
                 AVAudioApplication.requestRecordPermission { granted in
                     Task { @MainActor in
                         guard granted else {
-                            self.state = .unavailable(reason: "Enable microphone access in Settings.")
+                            self.showUnavailable("Enable microphone access in Settings.")
                             return
                         }
                         self.beginListening()
                     }
                 }
             }
+        }
+    }
+
+    /// `.unavailable` used to be a dead end — `toggleMic()` ignores taps
+    /// while in that state, so a transient failure (a bad recognition
+    /// result, not just "no permission") left the mic button permanently
+    /// stuck until the view reloaded. Auto-clearing back to `.idle` after
+    /// showing the reason makes every `.unavailable` case retryable.
+    private func showUnavailable(_ reason: String) {
+        state = .unavailable(reason: reason)
+        Task { @MainActor [weak self] in
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            guard let self, case .unavailable = self.state else { return }
+            self.state = .idle
         }
     }
 
@@ -74,7 +88,7 @@ final class VoiceRecognizer: ObservableObject {
             try session.setCategory(.record, mode: .measurement, options: .duckOthers)
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            state = .unavailable(reason: "Couldn't start the microphone.")
+            showUnavailable("Couldn't start the microphone.")
             return
         }
 
@@ -94,7 +108,7 @@ final class VoiceRecognizer: ObservableObject {
         do {
             try audioEngine.start()
         } catch {
-            state = .unavailable(reason: "Couldn't start the microphone.")
+            showUnavailable("Couldn't start the microphone.")
             return
         }
 
@@ -103,13 +117,26 @@ final class VoiceRecognizer: ObservableObject {
 
         task = recognizer.recognitionTask(with: request) { [weak self] result, error in
             Task { @MainActor in
-                guard let self else { return }
+                // `self.state == .listening` also filters out the spurious
+                // "canceled" callback that firing task?.cancel() from inside
+                // finish()/fail() below triggers — without this guard, a
+                // normal completion could immediately be followed by this
+                // same closure re-firing and showing a bogus error.
+                guard let self, self.state == .listening else { return }
                 if let result {
                     self.transcript = result.bestTranscription.formattedString
                     self.resetSilenceTimer()
                 }
                 if error != nil {
-                    self.finish()
+                    // Most commonly: the on-device speech model for this
+                    // language isn't downloaded (Settings > General >
+                    // Keyboard > Enable Dictation), which fails the instant
+                    // real speech needs transcribing rather than up front —
+                    // §4's on-device-only rule means there's no server
+                    // fallback to try instead. Previously this silently
+                    // called finish() with an empty transcript, which just
+                    // made the "Listening..." UI vanish with no explanation.
+                    self.fail(reason: "Couldn't transcribe that. Check that Dictation is on in Settings \u{2192} General \u{2192} Keyboard, then try again.")
                 }
             }
         }
@@ -125,6 +152,21 @@ final class VoiceRecognizer: ObservableObject {
 
     private func finish() {
         guard state == .listening else { return }
+        teardownAudio()
+        state = .idle
+        let finalTranscript = transcript
+        onFinish?(finalTranscript)
+    }
+
+    /// Same teardown as finish(), but for when there's no usable transcript
+    /// to hand back — shows why instead of just going quiet.
+    private func fail(reason: String) {
+        guard state == .listening else { return }
+        teardownAudio()
+        showUnavailable(reason)
+    }
+
+    private func teardownAudio() {
         silenceTimer?.invalidate()
         silenceTimer = nil
 
@@ -135,9 +177,5 @@ final class VoiceRecognizer: ObservableObject {
         task = nil
         request = nil
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
-
-        state = .idle
-        let finalTranscript = transcript
-        onFinish?(finalTranscript)
     }
 }
