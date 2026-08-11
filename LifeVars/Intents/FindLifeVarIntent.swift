@@ -40,5 +40,14 @@ struct LifeVarsShortcuts: AppShortcutsProvider {
             shortTitle: "Find a LifeVar",
             systemImageName: "curlybraces"
         )
+        AppShortcut(
+            intent: CheckLifeVarIntent(),
+            phrases: [
+                "Ask \(.applicationName) to check something",
+                "Check something in \(.applicationName)"
+            ],
+            shortTitle: "Check a LifeVar",
+            systemImageName: "faceid"
+        )
     }
 }

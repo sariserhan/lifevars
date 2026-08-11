@@ -16,6 +16,35 @@ struct DecryptedIndexEntry: Identifiable, Hashable {
     var deleteOnExpiration: Bool
     var isEmergencyAccessible: Bool
     var isPinned: Bool
+
+    init(id: UUID, name: String, aliases: [String], category: Category?, format: ValueFormat?, expiresAt: Date?, deleteOnExpiration: Bool, isEmergencyAccessible: Bool, isPinned: Bool) {
+        self.id = id
+        self.name = name
+        self.aliases = aliases
+        self.category = category
+        self.format = format
+        self.expiresAt = expiresAt
+        self.deleteOnExpiration = deleteOnExpiration
+        self.isEmergencyAccessible = isEmergencyAccessible
+        self.isPinned = isPinned
+    }
+
+    /// Shared by LifeVarStore.reload() (persistent session index) and
+    /// LifeVarLookup (CheckLifeVarIntent's one-shot headless lookup) — one
+    /// place translating decrypted metadata into this shape.
+    init(id: UUID, metadata: LifeVarMetadata) {
+        self.init(
+            id: id,
+            name: metadata.name,
+            aliases: metadata.aliases,
+            category: metadata.category,
+            format: metadata.format,
+            expiresAt: metadata.expiresAt,
+            deleteOnExpiration: metadata.deleteOnExpiration,
+            isEmergencyAccessible: metadata.isEmergencyAccessible,
+            isPinned: metadata.isPinned
+        )
+    }
 }
 
 /// The full set of user-editable fields on a LifeVar, minus the value —
@@ -79,17 +108,7 @@ final class LifeVarStore: ObservableObject {
             guard let metadata = try? CryptoBox.openCodable(record.encryptedMetadata, as: LifeVarMetadata.self, using: dek) else {
                 return nil
             }
-            let entry = DecryptedIndexEntry(
-                id: record.id,
-                name: metadata.name,
-                aliases: metadata.aliases,
-                category: metadata.category,
-                format: metadata.format,
-                expiresAt: metadata.expiresAt,
-                deleteOnExpiration: metadata.deleteOnExpiration,
-                isEmergencyAccessible: metadata.isEmergencyAccessible,
-                isPinned: metadata.isPinned
-            )
+            let entry = DecryptedIndexEntry(id: record.id, metadata: metadata)
             return (entry, record.lastAccessedAt ?? record.createdAt)
         }
         // §3 — most-recently-accessed first; falls back to createdAt for never-revealed items.

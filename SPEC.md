@@ -561,7 +561,9 @@ Build only after the core loop (step 9 in §16) is solid — don't start here.
   Open → LockScreen/session gate (§2) → Reveal
 ```
 
-Hard rule, not a nice-to-have: **the App Intent never returns the decrypted value to Siri, ever** — no spoken result, no Siri-rendered snippet containing the value. The intent can at most hand back a match confirmation and deep-link into the app to finish the reveal through the normal gate. If iOS App Intents can't express "confirm match, but require the containing app to do the reveal" cleanly, defer this to V1.1 rather than loosen the rule.
+Hard rule for `FindLifeVarIntent`, not a nice-to-have: **it never returns the decrypted value to Siri, ever** — no spoken result, no Siri-rendered snippet containing the value. It can at most hand back a match confirmation and deep-link into the app to finish the reveal through the normal gate.
+
+§19.5 adds a **second, separate intent** (`CheckLifeVarIntent`) that deliberately breaks this rule — on direct request, and narrowly. Both intents stay registered; `FindLifeVarIntent` remains the "open the app properly" path.
 
 ---
 
@@ -719,3 +721,14 @@ A `WidgetKit` extension, embedded the same way the Watch app is. Two pieces:
 
 - **Pinned Variable** (Lock Screen accessory widget): at most one LifeVar can be pinned at a time (configured via a toggle in Add/Edit; pinning a new one silently unpins the old one). The widget is a *shortcut*, never a *display* — it shows a generic locked-icon glyph and "Pinned"/"Not Set", never the item's name, category, or value. It learns only the pinned item's id, published across an App Group boundary the same way `id` is already considered safe to store in the clear on disk (§14). Tapping it opens the app and still runs the full Face ID session gate (§2) before RevealView shows anything — the widget itself proves nothing and decrypts nothing.
 - **Ask LifeVars** (Control Center control, iOS 18+): one tap opens the app straight into Home with the mic already listening — same `openAppWhenRun` pattern as the Siri App Intent (§13): the control's action runs in the extension process, which structurally cannot hold a DEK, so all it can do is flag "start listening" for the main app to pick up once it's actually open and unlocked.
+
+### 19.5 Headless Siri check (`CheckLifeVarIntent`) — an explicit exception, not a precedent
+
+By direct request: "Ask LifeVars to check my Audi VIN" → Face ID prompts as a system overlay, without the app ever opening → the value shows once as an inline Siri result. This is a **second, separate** App Intent from `FindLifeVarIntent` (§13), with `openAppWhenRun = false`, and it deliberately breaks §13's "never returns a decrypted value to Siri" rule — that rule still governs `FindLifeVarIntent`, which stays as the "open the app properly" path.
+
+What makes this an acceptable, bounded exception rather than a hole in the security model:
+
+- **Its own momentary auth, not the app's session.** `perform()` creates its own throwaway `LAContext` and fetches the DEK straight from `KeychainDEKStore` — the same Keychain-gated fetch that *is* the auth everywhere else (§15.1) — never touching `SessionManager`. Nothing persists after `perform()` returns; there's no session to leave unlocked.
+- **Never a notification.** The result renders as a Siri snippet (`LifeVarSnippetView`, `AppIntents`+`SwiftUI` cross-import's `.result(view:)`) shown once as part of the response the user just spoke. A local notification was explicitly considered and rejected: it would show on the Lock Screen by default (no unlock needed to read it), persist in Notification Center until manually cleared, and can mirror to other Apple-ID-linked devices via Handoff — a strictly worse leak surface than a one-time Siri response.
+- **Decrypt logic is shared, not duplicated.** `LifeVarLookup.lookup()` (`Data/LifeVarLookup.swift`) is the same decrypt-and-`Matcher.match` shape `LifeVarStore.reload()` uses, factored out so both build a `DecryptedIndexEntry` the same way (`DecryptedIndexEntry(id:metadata:)`) — a fix to the matcher applies to both call sites, not just one.
+- **Named caveat, not a hidden one**: the Siri snippet is system UI whose on-screen lifetime LifeVars doesn't control, unlike `RevealView`'s auto-hide/no-screen-recording guard (§5). And since Face ID authenticates *whoever's face is in front of the phone*, not *the request's origin*, this works the same whether the phone is locked or not — worth knowing before relying on it for something highly sensitive.
