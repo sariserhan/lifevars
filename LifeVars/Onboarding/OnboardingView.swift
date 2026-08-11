@@ -1,24 +1,30 @@
 import SwiftUI
 
-/// SPEC.md §1 — three screens. The "first LifeVar" prompt (§1.4) is deferred
-/// until the Add flow exists (dev step 5); for now, finishing onboarding goes
-/// straight to the session gate / Home.
+/// SPEC.md §1 — five screens: what LifeVars is, what you'd store, how
+/// retrieval actually works (voice included), where it lives (local +
+/// encrypted), then the Face ID enable action. The "first LifeVar" prompt
+/// (§1.4) is deferred until the Add flow exists (dev step 5); for now,
+/// finishing onboarding goes straight to the session gate / Home.
 struct OnboardingView: View {
     @Binding var hasCompletedOnboarding: Bool
     @EnvironmentObject private var session: SessionManager
     @State private var page = 0
     @State private var faceIDMessage: String?
 
+    private let lastPage = 4
+
     var body: some View {
         VStack {
             TabView(selection: $page) {
                 WelcomePage().tag(0)
                 WhatItsForPage().tag(1)
-                FaceIDPage(onEnable: enableFaceID, onSkip: finish, message: faceIDMessage).tag(2)
+                HowItWorksPage().tag(2)
+                SecurityPage().tag(3)
+                FaceIDPage(onEnable: enableFaceID, onSkip: finish, message: faceIDMessage).tag(4)
             }
             .tabViewStyle(.page(indexDisplayMode: .automatic))
 
-            if page < 2 {
+            if page < lastPage {
                 Button("Next") { withAnimation { page += 1 } }
                     .buttonStyle(.borderedProminent)
                     .padding(.bottom, 32)
@@ -71,6 +77,46 @@ private struct WhatItsForPage: View {
     }
 }
 
+private struct HowItWorksPage: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Ask, and it's there.")
+                .font(.title.bold())
+                .multilineTextAlignment(.center)
+            VStack(spacing: 10) {
+                Text("Type a name, or just say it out loud —")
+                Text("\u{201C}What's my Audi VIN?\u{201D}")
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundStyle(.primary)
+                Text("and the answer appears right on your screen. No digging through Photos or Notes.")
+            }
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 40)
+        }
+    }
+}
+
+private struct SecurityPage: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Stays on your phone.\nNowhere else.")
+                .font(.title.bold())
+                .multilineTextAlignment(.center)
+            Text("Every LifeVar is encrypted the moment you save it. No account, no server, no cloud — this device is the only place any of it ever exists.")
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+            Text("That cuts both ways: losing this device means losing your LifeVars until backup ships.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+                .padding(.top, 8)
+        }
+    }
+}
+
 private struct FaceIDPage: View {
     let onEnable: () -> Void
     let onSkip: () -> Void
@@ -81,7 +127,7 @@ private struct FaceIDPage: View {
             Text("Only you can open\nLifeVars")
                 .font(.title.bold())
                 .multilineTextAlignment(.center)
-            Text("Protected with Face ID and encrypted on this device.")
+            Text("Face ID unlocks everything at once — no separate password to remember, no prompt per item.")
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
@@ -99,14 +145,6 @@ private struct FaceIDPage: View {
                     .font(.footnote)
                     .foregroundStyle(.orange)
             }
-
-            Spacer().frame(height: 20)
-
-            Text("Stored only on this device — losing your phone means losing your LifeVars until backup ships.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
         }
     }
 }
