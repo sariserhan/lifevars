@@ -1,8 +1,6 @@
 import SwiftUI
 
-/// SPEC.md §11 — deliberately small. No Encrypted Backup/Restore rows: that's
-/// V1.1 work that doesn't exist yet, and a settings row implies working
-/// functionality.
+/// SPEC.md §11 — deliberately small.
 struct SettingsView: View {
     @EnvironmentObject private var store: LifeVarStore
     @EnvironmentObject private var storeManager: StoreManager
@@ -15,6 +13,8 @@ struct SettingsView: View {
     @AppStorage(UserSettings.Keys.appearance) private var appearanceRaw = AppearanceOption.system.rawValue
 
     @State private var isShowingPaywall = false
+    @State private var isShowingExportBackup = false
+    @State private var isShowingRestoreBackup = false
 
     var body: some View {
         NavigationStack {
@@ -61,6 +61,25 @@ struct SettingsView: View {
                     }
                 }
 
+                Section {
+                    Button("Export Encrypted Backup") {
+                        if storeManager.isPro {
+                            isShowingExportBackup = true
+                        } else {
+                            isShowingPaywall = true
+                        }
+                    }
+                    Button("Restore from Backup") {
+                        if storeManager.isPro {
+                            isShowingRestoreBackup = true
+                        } else {
+                            isShowingPaywall = true
+                        }
+                    }
+                } footer: {
+                    Text("A password-protected file you save yourself — nothing is uploaded automatically. You'll need the password again to restore it.")
+                }
+
                 Section("Appearance") {
                     Picker("Appearance", selection: $appearanceRaw) {
                         ForEach(AppearanceOption.allCases, id: \.rawValue) { option in
@@ -93,6 +112,12 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $isShowingPaywall) {
             PaywallView()
+        }
+        .sheet(isPresented: $isShowingExportBackup) {
+            ExportBackupView()
+        }
+        .sheet(isPresented: $isShowingRestoreBackup) {
+            RestoreBackupView()
         }
     }
 }

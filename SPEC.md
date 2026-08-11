@@ -519,7 +519,7 @@ Version 1.0
 - **Unlock Method**: opens the two-option picker from §2.4 (Face ID Only / Face ID + Device Passcode), with the invalidation trade-off caption shown at the point of choice. Only shown once biometrics are enrolled; otherwise this row is absent and the app runs on passcode alone.
 - **Auto-hide**: the Reveal-screen countdown duration (§5), default 30s. A simple picker (10s / 20s / 30s / 60s) — no need for a continuous slider.
 - **Lock when app backgrounds**: drives §2.3. Default On.
-- **No Encrypted Backup / Restore rows in V1.** Export/import is real V1.1 work (PLAN.md §9/§15) that doesn't exist yet — a settings row implies working functionality, and a "Coming soon" label on a data-recovery feature risks a user assuming they're covered when they aren't. Add the rows in V1.1 when they do something; the settings list can grow later at near-zero cost.
+- **Export Encrypted Backup / Restore from Backup**: post-plan addition, §19.6 — both gated behind Pro, matching the paywall's promise.
 - **LifeVars Pro**: shows `X of 3 used` on free tier, opens PaywallView (§11.1) on tap; shows "Pro — Unlimited" with no tap target once purchased.
 - **About → Privacy/Security**: static screens explaining local-only storage and the encryption model in plain language — this is the app's actual marketing claim, worth getting right, not boilerplate legal text.
 
@@ -529,8 +529,8 @@ Version 1.0
       LifeVars Pro
 
    Unlimited LifeVars
-   Siri integration (soon)
-   Encrypted backup (soon)
+   Siri integration
+   Encrypted backup
 
     [ Unlock — $39.99 ]
        one-time
@@ -538,7 +538,7 @@ Version 1.0
      Restore Purchase
 ```
 
-Voice retrieval, search, and Face ID protection are part of the **free** experience — the "ask and get an instant answer" loop is the entire pitch, and paywalling it means a free user never sees what LifeVars actually is. Free tier is capped at 3 items total, not 3 voice queries or 3/month. Pro removes the item cap and unlocks features as they ship (Siri, backup are both V1.1 — listed here as roadmap, not present functionality, hence "(soon)"). StoreKit 2, single non-consumable, per PLAN.md §17. Limit checked at Save time (§6.2).
+Voice retrieval, search, and Face ID protection are part of the **free** experience — the "ask and get an instant answer" loop is the entire pitch, and paywalling it means a free user never sees what LifeVars actually is. Free tier is capped at 3 items total, not 3 voice queries or 3/month. Pro removes the item cap and unlocks Siri and Encrypted Backup (§19.6) — both post-plan additions, both fully built, no "(soon)" qualifier needed. StoreKit 2, single non-consumable, per PLAN.md §17. Limit checked at Save time (§6.2).
 
 ---
 
@@ -677,7 +677,9 @@ If that feels instantaneous and polished, V1 is complete. The app should remain 
 
 ## 18. Explicit non-goals for V1
 
-Per PLAN.md §13/§16: no encrypted backup/export *functionality* (rows exist per §11, wiring is V1.1), no sharing/family, no account/login screen, no server of any kind. Siri (§13) ships only if it stays simple — cut it before cutting the security rule that gates it.
+Per PLAN.md §13/§16: no sharing/family, no account/login screen, no server of any kind. Siri (§13) ships only if it stays simple — cut it before cutting the security rule that gates it.
+
+Encrypted backup/export was a V1 non-goal too, originally deferred to V1.1 — built anyway as a post-plan addition (§19.6) at direct request, same as Apple Watch (§19.3) above.
 
 Apple Watch was originally a non-goal here too; built anyway as a post-plan addition (§19.3) at direct request.
 
@@ -739,3 +741,12 @@ What makes this an acceptable, bounded exception rather than a hole in the secur
 - **Never a notification.** The result renders as a Siri snippet (`LifeVarSnippetView`, `AppIntents`+`SwiftUI` cross-import's `.result(view:)`) shown once as part of the response the user just spoke. A local notification was explicitly considered and rejected: it would show on the Lock Screen by default (no unlock needed to read it), persist in Notification Center until manually cleared, and can mirror to other Apple-ID-linked devices via Handoff — a strictly worse leak surface than a one-time Siri response.
 - **Decrypt logic is shared, not duplicated.** `LifeVarLookup.lookup()` (`Data/LifeVarLookup.swift`) is the same decrypt-and-`Matcher.match` shape `LifeVarStore.reload()` uses, factored out so both build a `DecryptedIndexEntry` the same way (`DecryptedIndexEntry(id:metadata:)`) — a fix to the matcher applies to both call sites, not just one.
 - **Named caveat, not a hidden one**: the Siri snippet is system UI whose on-screen lifetime LifeVars doesn't control, unlike `RevealView`'s auto-hide/no-screen-recording guard (§5). And since Face ID authenticates *whoever's face is in front of the phone*, not *the request's origin*, this works the same whether the phone is locked or not — worth knowing before relying on it for something highly sensitive.
+
+### 19.6 Encrypted backup — a password, deliberately, not iCloud
+
+Considered full iCloud sync first and ruled it out: making synced data actually *readable* on another device means the encryption key has to leave this device too (via iCloud Keychain sync), which reverses the single most repeated promise in this app — the DEK is `ThisDeviceOnly` and never leaves, stated in onboarding, Settings → Privacy, and the marketing site. A manual, user-triggered encrypted export/import keeps that promise intact: nothing leaves the device automatically or silently, only when explicitly exported, and only into a file the user controls.
+
+- **Export** (`Settings/ExportBackupView.swift`): decrypts every record with the real DEK (`LifeVarStore.exportBackupItems()` — the only other place besides `revealValue()` that plaintext ever exists, and only transiently in memory), then immediately re-encrypts under a **user-chosen password** — not the DEK, since a backup has to open on a different device or after a reinstall, where the original DEK doesn't exist. `Backup/BackupCodec.swift` derives a key from that password via PBKDF2-HMAC-SHA256 (300,000 iterations, random 16-byte salt, both stored alongside the ciphertext in the file — not secret, standard practice, lets a future version raise the iteration count without breaking old backups) and seals the JSON payload with AES-GCM, same primitive as everywhere else (§15.1). The resulting `.lifevarsbackup` file is hers to save wherever she wants via `ShareLink` — Files, iCloud Drive, AirDrop, none of it automatic.
+- **Restore** (`Settings/RestoreBackupView.swift`): picks a file, prompts for the password, decrypts, and calls `LifeVarStore.importBackupItems()` — which adds every item as new via the same `add()` the UI uses, so emergency-payload sealing, expiration reminders, and single-pin enforcement all happen for free. Deliberately no de-duplication or overwrite-by-name: a restore should never silently clobber something already on the device.
+- **Gated behind Pro**, matching what the paywall already promised (§11.1) before this existed.
+- Wrong password and a corrupted file produce the *same* error message on purpose — telling an attacker "the password was wrong" vs. "the file is malformed" is free information a legitimate user restoring their own backup doesn't need split out.

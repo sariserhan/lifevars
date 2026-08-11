@@ -233,6 +233,54 @@ final class LifeVarStore: ObservableObject {
         reload()
     }
 
+    /// Backup/BackupCodec.swift re-encrypts this under a user password
+    /// before it ever touches disk — decrypting every record here is the
+    /// one other place (besides revealValue()) plaintext ever exists, and
+    /// only ever transiently in memory.
+    func exportBackupItems() throws -> [BackupItem] {
+        guard let dek = session.dek else { throw LifeVarStoreError.locked }
+        guard let records = try? modelContext.fetch(FetchDescriptor<LifeVar>()) else { return [] }
+        return records.compactMap { record in
+            guard let metadata = try? CryptoBox.openCodable(record.encryptedMetadata, as: LifeVarMetadata.self, using: dek),
+                  let valueData = try? CryptoBox.open(record.encryptedValue, using: dek),
+                  let value = String(data: valueData, encoding: .utf8) else {
+                return nil
+            }
+            return BackupItem(
+                name: metadata.name,
+                aliases: metadata.aliases,
+                category: metadata.category,
+                format: metadata.format,
+                expiresAt: metadata.expiresAt,
+                deleteOnExpiration: metadata.deleteOnExpiration,
+                isEmergencyAccessible: metadata.isEmergencyAccessible,
+                isPinned: metadata.isPinned,
+                value: value
+            )
+        }
+    }
+
+    /// Adds every item as new — deliberately no de-duplication or
+    /// overwrite-by-name. Restoring should never silently clobber
+    /// something already on this device; routes through the exact same
+    /// add() as the UI, so emergency payload sealing, expiration
+    /// reminders, and single-pin enforcement all happen for free.
+    func importBackupItems(_ items: [BackupItem]) throws {
+        for item in items {
+            let fields = LifeVarFields(
+                name: item.name,
+                aliases: item.aliases,
+                category: item.category,
+                format: item.format,
+                expiresAt: item.expiresAt,
+                deleteOnExpiration: item.deleteOnExpiration,
+                isEmergencyAccessible: item.isEmergencyAccessible,
+                isPinned: item.isPinned
+            )
+            try add(fields, value: item.value)
+        }
+    }
+
     /// SPEC.md §15.1 — decrypts only the single requested record, never bulk.
     func revealValue(id: UUID) throws -> String {
         guard let dek = session.dek else { throw LifeVarStoreError.locked }
