@@ -18,8 +18,6 @@ struct HomeView: View {
     @State private var disambiguation: DisambiguationQuery?
     @State private var isShowingSettings = false
     @AppStorage("groupByCategory") private var groupByCategory = false
-    @State private var aliasesItem: DecryptedIndexEntry?
-    @State private var expirationItem: DecryptedIndexEntry?
 
     var body: some View {
         NavigationStack {
@@ -137,12 +135,6 @@ struct HomeView: View {
                     }
                 }
                 .listStyle(.plain)
-                .popover(item: $aliasesItem) { item in
-                    aliasesPopover(for: item)
-                }
-                .popover(item: $expirationItem) { item in
-                    expirationPopover(for: item)
-                }
             }
         }
     }
@@ -278,112 +270,13 @@ struct HomeView: View {
         }
     }
 
-    /// The reveal-tap target (icon + name + dots) and the badge tray are
-    /// siblings, not nested — a Button inside another Button's label
-    /// doesn't reliably register its own taps in SwiftUI, so the badges
-    /// need their own hit region alongside the row's, not inside it.
     private func row(for item: DecryptedIndexEntry) -> some View {
-        HStack(spacing: 12) {
-            Button {
-                revealingItem = item
-            } label: {
-                HStack(spacing: 12) {
-                    Image(systemName: (item.category ?? .other).symbolName)
-                        .foregroundStyle(.secondary)
-                        .frame(width: 24)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(item.name)
-                            .foregroundStyle(.primary)
-                        // §14 — VoiceOver would otherwise read every dot as
-                        // the literal word "bullet"; hide the decoration
-                        // and give the row one sensible combined label.
-                        Text(String(repeating: "•", count: 12))
-                            .foregroundStyle(.secondary)
-                            .accessibilityHidden(true)
-                    }
-                }
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel("\(item.name), hidden value")
-
-            Spacer()
-
-            badges(for: item)
-        }
-        .swipeActions {
-            Button("Delete", role: .destructive) {
-                try? store.delete(id: item.id)
-            }
-            Button("Edit") {
-                editingItem = item
-            }
-            .tint(.blue)
-        }
-    }
-
-    /// Small status icons — aliases and expiration are tappable (they show
-    /// an overlay with the actual detail); Emergency Access and Pin are
-    /// plain indicators, same as their state is already visible/editable
-    /// from Edit, no extra detail to show here.
-    private func badges(for item: DecryptedIndexEntry) -> some View {
-        HStack(spacing: 10) {
-            if !item.aliases.isEmpty {
-                Button {
-                    aliasesItem = item
-                } label: {
-                    Image(systemName: "character.bubble.fill")
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Aliases")
-            }
-            if item.expiresAt != nil {
-                Button {
-                    expirationItem = item
-                } label: {
-                    Image(systemName: "clock.fill")
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel(item.deleteOnExpiration ? "Deletes automatically" : "Has an expiration reminder")
-            }
-            if item.isEmergencyAccessible {
-                Image(systemName: "staroflife.fill")
-                    .accessibilityLabel("Emergency accessible")
-            }
-            if item.isPinned {
-                Image(systemName: "pin.fill")
-                    .accessibilityLabel("Pinned to Lock Screen")
-            }
-        }
-        .font(.caption)
-        .foregroundStyle(.secondary)
-    }
-
-    private func aliasesPopover(for item: DecryptedIndexEntry) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Also known as")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            ForEach(item.aliases, id: \.self) { alias in
-                Text(alias)
-            }
-        }
-        .padding()
-        .presentationCompactAdaptation(.popover)
-    }
-
-    private func expirationPopover(for item: DecryptedIndexEntry) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(item.deleteOnExpiration ? "Deletes" : "Expires")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            if let expiresAt = item.expiresAt {
-                Text(expiresAt.formatted(date: .abbreviated, time: .omitted))
-                    .font(.headline)
-            }
-        }
-        .padding()
-        .presentationCompactAdaptation(.popover)
+        LifeVarRow(
+            item: item,
+            onReveal: { revealingItem = item },
+            onEdit: { editingItem = item },
+            onDelete: { try? store.delete(id: item.id) }
+        )
     }
 
     /// SPEC.md §3.2 — typed query with no match, offered as a new LifeVar name.
