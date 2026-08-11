@@ -1,0 +1,13 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Local tooling state, not project source
+.claude/

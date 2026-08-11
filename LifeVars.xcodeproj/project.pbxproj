@@ -1,0 +1,860 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02CA83502FBE2F3B4A748574 /* SecurityInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE40560519CDC8A2FD090B64 /* SecurityInfoView.swift */; };
+		065D39514D13D31C48DEDC3C /* LifeVarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED2C71A78AEF95F4839B4B5 /* LifeVarStore.swift */; };
+		0CC9C68ECF6C474AF993E0B9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD93B16199E158DF3749274 /* HomeView.swift */; };
+		13AF54F3F4D2C05453AB6A3A /* LockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A50FB089FE36D7043D61429 /* LockScreenView.swift */; };
+		1CF1C2D09E1DDC0D8D73F211 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9FDC67E3644EB9D984A29F /* SettingsView.swift */; };
+		1E12D65A955DD111FD9B0C32 /* CryptoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE9D2C06F8E83CBA99C604F /* CryptoBox.swift */; };
+		3376BB186A54BD75199B2A26 /* EmergencyKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AF10F66D3DA92D44AC45D2 /* EmergencyKeyStore.swift */; };
+		35EF3F374862196F04E70782 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB3D5982DAD00845065C691 /* Classification.swift */; };
+		43B118CFEE8C483E5D4A1AB5 /* PendingSiriQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1477076772C6829685E8A8 /* PendingSiriQuery.swift */; };
+		4745C917A8E1C9BEAD9374FE /* LifeVarsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E86B4534C3BAB134F3EBC5 /* LifeVarsApp.swift */; };
+		601885DFFD304CDA93769AA4 /* PhoneConnectivitySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC175F7A47E29A1FCCF188B /* PhoneConnectivitySession.swift */; };
+		607AB0BD7FEE97885043A527 /* LifeVarsWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		64B3CA69E6D22ADD9745DA3C /* AskLifeVarsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8033DDFA95DCA89C6CDC2CD7 /* AskLifeVarsControl.swift */; };
+		66C1F3895583F847CA10348C /* KeychainDEKStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4259D0122770A727EE22D7A /* KeychainDEKStore.swift */; };
+		6B6DC2C59EEA886E732434A1 /* AppGroupBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B9F3AE9D2EB6533C8FCF8 /* AppGroupBridge.swift */; };
+		6DBF47F496BAFE82FB82FA05 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1C07413D7B2026291B739D /* StoreManager.swift */; };
+		6F52E5BF98D4FB6E02F2AE3A /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEC46671E479676DBA63D /* Matcher.swift */; };
+		6FA5612EA038990DF5CA7E4B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201A2D41BAA33B5F44B64828 /* UserSettings.swift */; };
+		71425BC2FF1A5ECBD09D519D /* LifeVarsWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB212440254172C9991EAA /* LifeVarsWidgetsBundle.swift */; };
+		76C8B0E72C48CEC932D8A94D /* PinnedVariableWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CEE14EEC627EEF47223CAF /* PinnedVariableWidget.swift */; };
+		7A2C688963877EFD64E4EEE1 /* LifeVarsWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7A34326F385B8D620E3653A5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F88588BCE6229B980721E2 /* Persistence.swift */; };
+		7B9C4FB51DE95F8C10C936CA /* AppSwitcherOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37B41AAA24D12153F765F7C /* AppSwitcherOverlay.swift */; };
+		865519FF59A12A6557196E61 /* EmergencyPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46BF0E7336792F6D7247CC /* EmergencyPayload.swift */; };
+		871C918DA9D796C211C5D293 /* LifeVarsWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71159F9569324E678D0C20D0 /* LifeVarsWatchApp.swift */; };
+		8CBF192C7DE06A66D8D14C81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01275DECDF160BAC32599A28 /* Assets.xcassets */; };
+		8E7339D58463595242FE2EFC /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9BC73741BB17583BF82707 /* SessionManager.swift */; };
+		90BC152A2FE37DA39C1BB2D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B575935E7A60437412E81 /* ContentView.swift */; };
+		9176E3B0E6577D218255A39B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F3B383F3105CF37EE31D2 /* OnboardingView.swift */; };
+		95A04D2152FF0098684E8BBF /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40D1C37B238284992255134 /* RevealView.swift */; };
+		9E476282DE0932E202A88465 /* AddVariableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821EA05779F8E4A397FD2696 /* AddVariableView.swift */; };
+		A557C04D572E8C256C6BDFBB /* PendingDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BA0F970382C5EF19EE36B /* PendingDeepLink.swift */; };
+		A5FBCCF42B4F03CA74B57D20 /* EmergencyAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0774B5AA1DC0AA3D3FB0A2 /* EmergencyAccessView.swift */; };
+		AB7838047AA827486F35F8D3 /* VoiceRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D5C65203CD588C11CD4D8 /* VoiceRecognizer.swift */; };
+		C2037B87C68113807C4592CF /* AppGroupBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B9F3AE9D2EB6533C8FCF8 /* AppGroupBridge.swift */; };
+		C3E0201B2E078660DD01428F /* FindLifeVarIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77483336F62A93A513CA40AE /* FindLifeVarIntent.swift */; };
+		CC638811E2642148AF576BB3 /* PrivacyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6B539844C9214762AE1F39 /* PrivacyInfoView.swift */; };
+		D446FCB82EEAEB01E9027B30 /* ExpirationNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F29AB520F3FED0FC11D2B /* ExpirationNotifier.swift */; };
+		D916E7BD9414359E5932DC9F /* EditVariableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E246FC9264D658AD9FDE8 /* EditVariableView.swift */; };
+		DB873F17549E2FEFA4A59E6E /* LifeVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A598A5D26E808D401A8DBCDD /* LifeVar.swift */; };
+		E19EBC4F8615A88D3AE047E3 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270D910049B73AB0E35527ED /* WatchConnectivityManager.swift */; };
+		E69B83D11A927DE70985F738 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F2D03AE2B3D1B2B224F29 /* PaywallView.swift */; };
+		EDE1E47EEEAC587B5D54C0EA /* DisambiguationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A740A393B55697E2DF7C120 /* DisambiguationView.swift */; };
+		EF037D843FA95D7DD62E0B63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31B603A74B7AFC39A621544C /* Assets.xcassets */; };
+		FDD43151D9AA18C7B9BC4BCD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110F81F0D3A12BDA84E2AB /* RootView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		056286EA054BB7703F02BEEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFB77DB90E68029A066A5E30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E321D9043B9ACABE47A52DB6;
+			remoteInfo = LifeVarsWidgets;
+		};
+		F0E7F3268C350731932346BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFB77DB90E68029A066A5E30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B97F865108A366EB6A29FF6F;
+			remoteInfo = LifeVarsWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71A022914E3BE8FADD51908F /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				7A2C688963877EFD64E4EEE1 /* LifeVarsWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD41FC8F3A386EB0D7824714 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				607AB0BD7FEE97885043A527 /* LifeVarsWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		01275DECDF160BAC32599A28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1ED2C71A78AEF95F4839B4B5 /* LifeVarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarStore.swift; sourceTree = "<group>"; };
+		1F6B9F3AE9D2EB6533C8FCF8 /* AppGroupBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupBridge.swift; sourceTree = "<group>"; };
+		201A2D41BAA33B5F44B64828 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		221F3B383F3105CF37EE31D2 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		270D910049B73AB0E35527ED /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		2A740A393B55697E2DF7C120 /* DisambiguationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationView.swift; sourceTree = "<group>"; };
+		2B1477076772C6829685E8A8 /* PendingSiriQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingSiriQuery.swift; sourceTree = "<group>"; };
+		2D0A2E70A5DA99633D3D331A /* LifeVarsWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeVarsWidgets.entitlements; sourceTree = "<group>"; };
+		31B603A74B7AFC39A621544C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32AF10F66D3DA92D44AC45D2 /* EmergencyKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyKeyStore.swift; sourceTree = "<group>"; };
+		3AD93B16199E158DF3749274 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		517F2D03AE2B3D1B2B224F29 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		577B575935E7A60437412E81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5D1C07413D7B2026291B739D /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = LifeVarsWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		653F29AB520F3FED0FC11D2B /* ExpirationNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationNotifier.swift; sourceTree = "<group>"; };
+		6F9BC73741BB17583BF82707 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		71159F9569324E678D0C20D0 /* LifeVarsWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarsWatchApp.swift; sourceTree = "<group>"; };
+		73110F81F0D3A12BDA84E2AB /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		77483336F62A93A513CA40AE /* FindLifeVarIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindLifeVarIntent.swift; sourceTree = "<group>"; };
+		7A50FB089FE36D7043D61429 /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
+		7D9FDC67E3644EB9D984A29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7E6B539844C9214762AE1F39 /* PrivacyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyInfoView.swift; sourceTree = "<group>"; };
+		8033DDFA95DCA89C6CDC2CD7 /* AskLifeVarsControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLifeVarsControl.swift; sourceTree = "<group>"; };
+		821EA05779F8E4A397FD2696 /* AddVariableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVariableView.swift; sourceTree = "<group>"; };
+		84AEEC46671E479676DBA63D /* Matcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
+		8BE9D2C06F8E83CBA99C604F /* CryptoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoBox.swift; sourceTree = "<group>"; };
+		93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeVarsWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97CEE14EEC627EEF47223CAF /* PinnedVariableWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedVariableWidget.swift; sourceTree = "<group>"; };
+		A598A5D26E808D401A8DBCDD /* LifeVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVar.swift; sourceTree = "<group>"; };
+		B04BA0F970382C5EF19EE36B /* PendingDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingDeepLink.swift; sourceTree = "<group>"; };
+		BFC175F7A47E29A1FCCF188B /* PhoneConnectivitySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivitySession.swift; sourceTree = "<group>"; };
+		D0BB212440254172C9991EAA /* LifeVarsWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarsWidgetsBundle.swift; sourceTree = "<group>"; };
+		D4259D0122770A727EE22D7A /* KeychainDEKStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDEKStore.swift; sourceTree = "<group>"; };
+		D60948F15726BA8DFED2B077 /* LifeVars.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LifeVars.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D84D5C65203CD588C11CD4D8 /* VoiceRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecognizer.swift; sourceTree = "<group>"; };
+		D9E86B4534C3BAB134F3EBC5 /* LifeVarsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeVarsApp.swift; sourceTree = "<group>"; };
+		E37B41AAA24D12153F765F7C /* AppSwitcherOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSwitcherOverlay.swift; sourceTree = "<group>"; };
+		E40D1C37B238284992255134 /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
+		E8F88588BCE6229B980721E2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		EBB3D5982DAD00845065C691 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		F40E246FC9264D658AD9FDE8 /* EditVariableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVariableView.swift; sourceTree = "<group>"; };
+		FC46BF0E7336792F6D7247CC /* EmergencyPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyPayload.swift; sourceTree = "<group>"; };
+		FD0774B5AA1DC0AA3D3FB0A2 /* EmergencyAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyAccessView.swift; sourceTree = "<group>"; };
+		FD6AB381237DE5F89EDF97D5 /* LifeVars.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeVars.entitlements; sourceTree = "<group>"; };
+		FE40560519CDC8A2FD090B64 /* SecurityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityInfoView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		011B03B46BAD7981A3F84E3F /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				B04BA0F970382C5EF19EE36B /* PendingDeepLink.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		1DCDCF0946810286058B9095 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1ED2C71A78AEF95F4839B4B5 /* LifeVarStore.swift */,
+				E8F88588BCE6229B980721E2 /* Persistence.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		20BB1B86ED7BC7DDC8E28882 /* LifeVarsWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				8033DDFA95DCA89C6CDC2CD7 /* AskLifeVarsControl.swift */,
+				2D0A2E70A5DA99633D3D331A /* LifeVarsWidgets.entitlements */,
+				D0BB212440254172C9991EAA /* LifeVarsWidgetsBundle.swift */,
+				97CEE14EEC627EEF47223CAF /* PinnedVariableWidget.swift */,
+			);
+			path = LifeVarsWidgets;
+			sourceTree = "<group>";
+		};
+		37B1C3ACAE34566790106B4E /* Lock */ = {
+			isa = PBXGroup;
+			children = (
+				7A50FB089FE36D7043D61429 /* LockScreenView.swift */,
+			);
+			path = Lock;
+			sourceTree = "<group>";
+		};
+		387D4DDCD1778F4621F7571F /* Voice */ = {
+			isa = PBXGroup;
+			children = (
+				2A740A393B55697E2DF7C120 /* DisambiguationView.swift */,
+				2B1477076772C6829685E8A8 /* PendingSiriQuery.swift */,
+				D84D5C65203CD588C11CD4D8 /* VoiceRecognizer.swift */,
+			);
+			path = Voice;
+			sourceTree = "<group>";
+		};
+		43D2BA0759D591E16495D443 /* Variables */ = {
+			isa = PBXGroup;
+			children = (
+				821EA05779F8E4A397FD2696 /* AddVariableView.swift */,
+				F40E246FC9264D658AD9FDE8 /* EditVariableView.swift */,
+			);
+			path = Variables;
+			sourceTree = "<group>";
+		};
+		44FF3CBE2BC3D97CC0506BD6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				517F2D03AE2B3D1B2B224F29 /* PaywallView.swift */,
+				7E6B539844C9214762AE1F39 /* PrivacyInfoView.swift */,
+				FE40560519CDC8A2FD090B64 /* SecurityInfoView.swift */,
+				7D9FDC67E3644EB9D984A29F /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		473D1ED39C1A7CA791FEDB4E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				221F3B383F3105CF37EE31D2 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		66A1F59A01639EB383308817 /* Emergency */ = {
+			isa = PBXGroup;
+			children = (
+				FD0774B5AA1DC0AA3D3FB0A2 /* EmergencyAccessView.swift */,
+				FC46BF0E7336792F6D7247CC /* EmergencyPayload.swift */,
+			);
+			path = Emergency;
+			sourceTree = "<group>";
+		};
+		736C4F6C893A37C1C669904D /* LifeVarsWatch */ = {
+			isa = PBXGroup;
+			children = (
+				01275DECDF160BAC32599A28 /* Assets.xcassets */,
+				577B575935E7A60437412E81 /* ContentView.swift */,
+				71159F9569324E678D0C20D0 /* LifeVarsWatchApp.swift */,
+				270D910049B73AB0E35527ED /* WatchConnectivityManager.swift */,
+			);
+			path = LifeVarsWatch;
+			sourceTree = "<group>";
+		};
+		800BF5D2E499082905737873 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1F6B9F3AE9D2EB6533C8FCF8 /* AppGroupBridge.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		813AC09CFC8196FEDBD563E5 /* Reveal */ = {
+			isa = PBXGroup;
+			children = (
+				E40D1C37B238284992255134 /* RevealView.swift */,
+			);
+			path = Reveal;
+			sourceTree = "<group>";
+		};
+		9E2C9B81A77D333B31306078 /* LifeVars */ = {
+			isa = PBXGroup;
+			children = (
+				31B603A74B7AFC39A621544C /* Assets.xcassets */,
+				FD6AB381237DE5F89EDF97D5 /* LifeVars.entitlements */,
+				FF60C927B9C3F160B90321EF /* App */,
+				DC1B956F91CC98F85FC07B68 /* Connectivity */,
+				1DCDCF0946810286058B9095 /* Data */,
+				66A1F59A01639EB383308817 /* Emergency */,
+				A5F87D1E31D847BED23A4AC6 /* Home */,
+				ECA2C71B6804AEF3885CF52B /* Intents */,
+				37B1C3ACAE34566790106B4E /* Lock */,
+				FBD89284329F77141DE91EA5 /* Models */,
+				D7EE7982ECA1AB41D81079CA /* Notifications */,
+				473D1ED39C1A7CA791FEDB4E /* Onboarding */,
+				813AC09CFC8196FEDBD563E5 /* Reveal */,
+				AA47E0D9F243D8A837915921 /* Security */,
+				44FF3CBE2BC3D97CC0506BD6 /* Settings */,
+				DE6A132FDA1719B4A2BC9610 /* Store */,
+				43D2BA0759D591E16495D443 /* Variables */,
+				387D4DDCD1778F4621F7571F /* Voice */,
+				011B03B46BAD7981A3F84E3F /* Widgets */,
+			);
+			path = LifeVars;
+			sourceTree = "<group>";
+		};
+		A5F87D1E31D847BED23A4AC6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3AD93B16199E158DF3749274 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		AA47E0D9F243D8A837915921 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				8BE9D2C06F8E83CBA99C604F /* CryptoBox.swift */,
+				32AF10F66D3DA92D44AC45D2 /* EmergencyKeyStore.swift */,
+				D4259D0122770A727EE22D7A /* KeychainDEKStore.swift */,
+				6F9BC73741BB17583BF82707 /* SessionManager.swift */,
+				201A2D41BAA33B5F44B64828 /* UserSettings.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		B1332DB5924ED59DCE64EE84 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D60948F15726BA8DFED2B077 /* LifeVars.app */,
+				93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */,
+				6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBB03AE8A81EDC014B3AD8B0 = {
+			isa = PBXGroup;
+			children = (
+				9E2C9B81A77D333B31306078 /* LifeVars */,
+				736C4F6C893A37C1C669904D /* LifeVarsWatch */,
+				20BB1B86ED7BC7DDC8E28882 /* LifeVarsWidgets */,
+				800BF5D2E499082905737873 /* Shared */,
+				B1332DB5924ED59DCE64EE84 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D7EE7982ECA1AB41D81079CA /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				653F29AB520F3FED0FC11D2B /* ExpirationNotifier.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		DC1B956F91CC98F85FC07B68 /* Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				BFC175F7A47E29A1FCCF188B /* PhoneConnectivitySession.swift */,
+			);
+			path = Connectivity;
+			sourceTree = "<group>";
+		};
+		DE6A132FDA1719B4A2BC9610 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				5D1C07413D7B2026291B739D /* StoreManager.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		ECA2C71B6804AEF3885CF52B /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				77483336F62A93A513CA40AE /* FindLifeVarIntent.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
+		FBD89284329F77141DE91EA5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EBB3D5982DAD00845065C691 /* Classification.swift */,
+				A598A5D26E808D401A8DBCDD /* LifeVar.swift */,
+				84AEEC46671E479676DBA63D /* Matcher.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FF60C927B9C3F160B90321EF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E37B41AAA24D12153F765F7C /* AppSwitcherOverlay.swift */,
+				D9E86B4534C3BAB134F3EBC5 /* LifeVarsApp.swift */,
+				73110F81F0D3A12BDA84E2AB /* RootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		24200EF99115F67FD2817F8A /* LifeVars */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55436E588B815D1FA4DC2F01 /* Build configuration list for PBXNativeTarget "LifeVars" */;
+			buildPhases = (
+				6BDE2141EE41603E5FD5AE0A /* Sources */,
+				6CB6C8B87E870FBDB0D49330 /* Resources */,
+				BD41FC8F3A386EB0D7824714 /* Embed Foundation Extensions */,
+				71A022914E3BE8FADD51908F /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2843F8B897641E137446184F /* PBXTargetDependency */,
+				17EEF12AC322C3AF7380AD21 /* PBXTargetDependency */,
+			);
+			name = LifeVars;
+			packageProductDependencies = (
+			);
+			productName = LifeVars;
+			productReference = D60948F15726BA8DFED2B077 /* LifeVars.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B97F865108A366EB6A29FF6F /* LifeVarsWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDC5132016FC8F0237FF37A5 /* Build configuration list for PBXNativeTarget "LifeVarsWatch" */;
+			buildPhases = (
+				4045240743FABDF26FBF0783 /* Sources */,
+				A9EA275729EE883FE117C1A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LifeVarsWatch;
+			packageProductDependencies = (
+			);
+			productName = LifeVarsWatch;
+			productReference = 93CAA90EEFC965F4975AA737 /* LifeVarsWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E321D9043B9ACABE47A52DB6 /* LifeVarsWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEFBA14230394F69F49DD75E /* Build configuration list for PBXNativeTarget "LifeVarsWidgets" */;
+			buildPhases = (
+				01729EEAF3B05D2A30E4F7C2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LifeVarsWidgets;
+			packageProductDependencies = (
+			);
+			productName = LifeVarsWidgets;
+			productReference = 6305DCD5BD155EC10BF9EF68 /* LifeVarsWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DFB77DB90E68029A066A5E30 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 731DB88C2A8DF454034B295F /* Build configuration list for PBXProject "LifeVars" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = BBB03AE8A81EDC014B3AD8B0;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B1332DB5924ED59DCE64EE84 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24200EF99115F67FD2817F8A /* LifeVars */,
+				B97F865108A366EB6A29FF6F /* LifeVarsWatch */,
+				E321D9043B9ACABE47A52DB6 /* LifeVarsWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6CB6C8B87E870FBDB0D49330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF037D843FA95D7DD62E0B63 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9EA275729EE883FE117C1A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CBF192C7DE06A66D8D14C81 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01729EEAF3B05D2A30E4F7C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2037B87C68113807C4592CF /* AppGroupBridge.swift in Sources */,
+				64B3CA69E6D22ADD9745DA3C /* AskLifeVarsControl.swift in Sources */,
+				71425BC2FF1A5ECBD09D519D /* LifeVarsWidgetsBundle.swift in Sources */,
+				76C8B0E72C48CEC932D8A94D /* PinnedVariableWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4045240743FABDF26FBF0783 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90BC152A2FE37DA39C1BB2D6 /* ContentView.swift in Sources */,
+				871C918DA9D796C211C5D293 /* LifeVarsWatchApp.swift in Sources */,
+				E19EBC4F8615A88D3AE047E3 /* WatchConnectivityManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BDE2141EE41603E5FD5AE0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E476282DE0932E202A88465 /* AddVariableView.swift in Sources */,
+				6B6DC2C59EEA886E732434A1 /* AppGroupBridge.swift in Sources */,
+				7B9C4FB51DE95F8C10C936CA /* AppSwitcherOverlay.swift in Sources */,
+				35EF3F374862196F04E70782 /* Classification.swift in Sources */,
+				1E12D65A955DD111FD9B0C32 /* CryptoBox.swift in Sources */,
+				EDE1E47EEEAC587B5D54C0EA /* DisambiguationView.swift in Sources */,
+				D916E7BD9414359E5932DC9F /* EditVariableView.swift in Sources */,
+				A5FBCCF42B4F03CA74B57D20 /* EmergencyAccessView.swift in Sources */,
+				3376BB186A54BD75199B2A26 /* EmergencyKeyStore.swift in Sources */,
+				865519FF59A12A6557196E61 /* EmergencyPayload.swift in Sources */,
+				D446FCB82EEAEB01E9027B30 /* ExpirationNotifier.swift in Sources */,
+				C3E0201B2E078660DD01428F /* FindLifeVarIntent.swift in Sources */,
+				0CC9C68ECF6C474AF993E0B9 /* HomeView.swift in Sources */,
+				66C1F3895583F847CA10348C /* KeychainDEKStore.swift in Sources */,
+				DB873F17549E2FEFA4A59E6E /* LifeVar.swift in Sources */,
+				065D39514D13D31C48DEDC3C /* LifeVarStore.swift in Sources */,
+				4745C917A8E1C9BEAD9374FE /* LifeVarsApp.swift in Sources */,
+				13AF54F3F4D2C05453AB6A3A /* LockScreenView.swift in Sources */,
+				6F52E5BF98D4FB6E02F2AE3A /* Matcher.swift in Sources */,
+				9176E3B0E6577D218255A39B /* OnboardingView.swift in Sources */,
+				E69B83D11A927DE70985F738 /* PaywallView.swift in Sources */,
+				A557C04D572E8C256C6BDFBB /* PendingDeepLink.swift in Sources */,
+				43B118CFEE8C483E5D4A1AB5 /* PendingSiriQuery.swift in Sources */,
+				7A34326F385B8D620E3653A5 /* Persistence.swift in Sources */,
+				601885DFFD304CDA93769AA4 /* PhoneConnectivitySession.swift in Sources */,
+				CC638811E2642148AF576BB3 /* PrivacyInfoView.swift in Sources */,
+				95A04D2152FF0098684E8BBF /* RevealView.swift in Sources */,
+				FDD43151D9AA18C7B9BC4BCD /* RootView.swift in Sources */,
+				02CA83502FBE2F3B4A748574 /* SecurityInfoView.swift in Sources */,
+				8E7339D58463595242FE2EFC /* SessionManager.swift in Sources */,
+				1CF1C2D09E1DDC0D8D73F211 /* SettingsView.swift in Sources */,
+				6DBF47F496BAFE82FB82FA05 /* StoreManager.swift in Sources */,
+				6FA5612EA038990DF5CA7E4B /* UserSettings.swift in Sources */,
+				AB7838047AA827486F35F8D3 /* VoiceRecognizer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		17EEF12AC322C3AF7380AD21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E321D9043B9ACABE47A52DB6 /* LifeVarsWidgets */;
+			targetProxy = 056286EA054BB7703F02BEEF /* PBXContainerItemProxy */;
+		};
+		2843F8B897641E137446184F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B97F865108A366EB6A29FF6F /* LifeVarsWatch */;
+			targetProxy = F0E7F3268C350731932346BF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		23BC03B0DD8E14A19E7271DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVarsWatch/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars.watchkitapp;
+				PRODUCT_NAME = LifeVars;
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		23D47C0DB307959D84F30A9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVarsWatch/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars.watchkitapp;
+				PRODUCT_NAME = LifeVars;
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		3A73E4779726A7ED6F17C470 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		BB2AE3D1A8C0AE3DA907DC7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		DE0C788CB14245DCD7F6F92B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeVars/LifeVars.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVars/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars;
+				PRODUCT_NAME = LifeVars;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E1EDC82B9A2DD382689E5086 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LifeVarsWidgets/LifeVarsWidgets.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVarsWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars.widgets;
+				PRODUCT_NAME = LifeVarsWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F85AE754FD5BB80B9FA73E8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeVars/LifeVars.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVars/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars;
+				PRODUCT_NAME = LifeVars;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F86037577ACB82615D28B676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LifeVarsWidgets/LifeVarsWidgets.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LifeVarsWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.LifeVars.widgets;
+				PRODUCT_NAME = LifeVarsWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		55436E588B815D1FA4DC2F01 /* Build configuration list for PBXNativeTarget "LifeVars" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F85AE754FD5BB80B9FA73E8A /* Debug */,
+				DE0C788CB14245DCD7F6F92B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		731DB88C2A8DF454034B295F /* Build configuration list for PBXProject "LifeVars" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A73E4779726A7ED6F17C470 /* Debug */,
+				BB2AE3D1A8C0AE3DA907DC7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BEFBA14230394F69F49DD75E /* Build configuration list for PBXNativeTarget "LifeVarsWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1EDC82B9A2DD382689E5086 /* Debug */,
+				F86037577ACB82615D28B676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FDC5132016FC8F0237FF37A5 /* Build configuration list for PBXNativeTarget "LifeVarsWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23D47C0DB307959D84F30A9E /* Debug */,
+				23BC03B0DD8E14A19E7271DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DFB77DB90E68029A066A5E30 /* Project object */;
+}

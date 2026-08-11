@@ -1,0 +1,31 @@
+{
+  "identifier" : "8F5A1B2C-1234-4A5B-9C3D-1A2B3C4D5E6F",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "6E1A2B3C-4D5E-4F6A-8B9C-0D1E2F3A4B5C",
+      "localizations" : [
+        {
+          "description" : "Unlimited LifeVars. Siri and encrypted backup when they ship.",
+          "displayName" : "LifeVars Pro",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.serhansari.LifeVars.pro",
+      "referenceName" : "LifeVars Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0",
+    "_developerTeamID" : "0",
+    "_lastSynchronizedDate" : 0
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
