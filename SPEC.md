@@ -525,7 +525,7 @@ Version 1.0
    Siri integration (soon)
    Encrypted backup (soon)
 
-    [ Unlock — $9.99 ]
+    [ Unlock — $39.99 ]
        one-time
 
      Restore Purchase
