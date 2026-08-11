@@ -72,6 +72,7 @@ struct SettingsView: View {
                 }
 
                 Section("About") {
+                    NavigationLink("How It Works") { HowItWorksView() }
                     NavigationLink("Privacy") { PrivacyInfoView() }
                     NavigationLink("Security") { SecurityInfoView() }
                     HStack {

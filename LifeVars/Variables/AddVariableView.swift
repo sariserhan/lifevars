@@ -26,7 +26,8 @@ struct AddVariableView: View {
 
     private static let suggestions = [
         "Social Security Number", "Passport Number", "Driver's License",
-        "VIN", "Insurance Policy", "Electric Account", "EIN"
+        "VIN", "Insurance Policy", "Bank Account Number", "WiFi Password",
+        "Electric Account", "EIN", "Membership Number", "Safe Combination", "Gate Code"
     ]
 
     enum ExpirationChoice: Hashable {
@@ -82,33 +83,44 @@ struct AddVariableView: View {
     }
 
     private var nameStep: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("What do you want to remember?")
-                .font(.headline)
-            TextField("e.g. Audi VIN", text: $name)
-                .textFieldStyle(.roundedBorder)
-                .onSubmit(advance)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("What do you want to remember?")
+                    .font(.headline)
+                TextField("e.g. Audi VIN", text: $name)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit(advance)
 
-            Text("Suggestions")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(Self.suggestions, id: \.self) { suggestion in
-                    Button(suggestion) {
-                        name = suggestion
-                        advance()
+                Text("Suggestions")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                FlowLayout(spacing: 8) {
+                    ForEach(Self.suggestions, id: \.self) { suggestion in
+                        Button {
+                            name = suggestion
+                            advance()
+                        } label: {
+                            Text(suggestion)
+                                .font(.subheadline)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color(.secondarySystemBackground))
+                                .clipShape(Capsule())
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             }
-
-            Spacer()
-
+            .padding()
+        }
+        .safeAreaInset(edge: .bottom) {
             Button("Continue", action: advance)
                 .buttonStyle(.borderedProminent)
                 .frame(maxWidth: .infinity)
                 .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+                .padding()
+                .background(.bar)
         }
-        .padding()
     }
 
     private func advance() {

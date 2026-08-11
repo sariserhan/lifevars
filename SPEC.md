@@ -442,13 +442,20 @@ Save
 Local, deterministic keyword lookup — no network call, no ML model. A static ordered table, first match wins:
 
 ```
-"Audi VIN" / "vin" / "vehicle number"     → 🚗 Vehicle,   aliases: [VIN, Car VIN, Vehicle VIN]
-"EIN" / "employer id"                      → 🏢 Business,  aliases: [EIN, Tax ID]
-"SSN" / "social security"                  → 🪪 Identity,  aliases: [SSN, Social]
-"passport"                                 → 🪪 Identity,  aliases: [Passport, Passport Number]
-"electric account" / "power account"       → ⚡ Home,      aliases: [Electric, Power Account]
-"hvac filter" / "air filter"               → 🏠 Home,      aliases: [Filter Size, Air Filter]
-(no match)                                 → 🔖 Other,     aliases: []
+"Audi VIN" / "vin" / "vehicle number"     → 🚗 Vehicle,     aliases: [VIN, Car VIN, Vehicle VIN]
+"EIN" / "employer id"                      → 🏢 Business,    aliases: [EIN, Tax ID]
+"SSN" / "social security"                  → 🪪 Identity,    aliases: [SSN, Social]
+"passport"                                 → 🪪 Identity,    aliases: [Passport, Passport Number]
+"driver's license" / "drivers license"     → 🪪 Identity,    aliases: [Driver's License, DL Number]
+"insurance"                                → ✚  Insurance,   aliases: [Insurance, Policy Number]
+"bank account"                             → 💰 Financial,   aliases: [Bank Account, Account Number]
+"membership"                               → ✅ Membership,  aliases: [Membership Number, Member ID]
+"electric account" / "power account"       → ⚡ Home,        aliases: [Electric, Power Account]
+"hvac filter" / "air filter"               → 🏠 Home,        aliases: [Filter Size, Air Filter]
+"wifi" / "wi-fi" / "router"                → 🏠 Home,        aliases: [WiFi Password, Router Password]
+"safe combination" / "safe code"           → 🏠 Home,        aliases: [Safe Combination]
+"gate code"                                → 🏠 Home,        aliases: [Gate Code]
+(no match)                                 → 🔖 Other,       aliases: []
 ```
 
 Mechanical sub-phrase aliasing only applies when the name matched a known category above (e.g. "Audi VIN" gets `VIN`/`Car VIN`/`Vehicle VIN` because "vin" hit the table). For names that fall through to Other, don't auto-generate combinations — an unclassified name like "Mom's Storage Unit Access Code" gets `aliases: []` by default, editable by the user in §7. A false-positive match on a wrong item is worse than asking the user to say the name they actually gave it; mechanically inventing phrasings for text we don't understand raises exactly that risk without evidence it helps.

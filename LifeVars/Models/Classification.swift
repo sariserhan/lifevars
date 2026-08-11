@@ -12,8 +12,15 @@ enum Classification {
         (["ein", "employer id"], .business, ["EIN", "Tax ID"], .ein),
         (["ssn", "social security"], .identity, ["SSN", "Social"], .ssn),
         (["passport"], .identity, ["Passport", "Passport Number"], nil),
+        (["driver's license", "drivers license"], .identity, ["Driver's License", "DL Number"], nil),
+        (["insurance"], .insurance, ["Insurance", "Policy Number"], nil),
+        (["bank account"], .financial, ["Bank Account", "Account Number"], nil),
+        (["membership"], .membership, ["Membership Number", "Member ID"], nil),
         (["electric account", "power account"], .home, ["Electric", "Power Account"], nil),
-        (["hvac filter", "air filter"], .home, ["Filter Size", "Air Filter"], nil)
+        (["hvac filter", "air filter"], .home, ["Filter Size", "Air Filter"], nil),
+        (["wifi", "wi-fi", "router"], .home, ["WiFi Password", "Router Password"], nil),
+        (["safe combination", "safe code"], .home, ["Safe Combination"], nil),
+        (["gate code"], .home, ["Gate Code"], nil)
     ]
 
     static func classify(name: String) -> (category: Category, aliases: [String], format: ValueFormat?) {
