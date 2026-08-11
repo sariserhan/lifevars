@@ -35,6 +35,7 @@ struct PinnedVariableProvider: TimelineProvider {
 }
 
 struct PinnedVariableWidgetView: View {
+    @Environment(\.widgetFamily) private var family
     let entry: PinnedVariableEntry
 
     var body: some View {
@@ -51,20 +52,40 @@ struct PinnedVariableWidgetView: View {
             }
     }
 
-    /// Top line is the same brand mark as LockScreenView/the Watch app's
-    /// ask screen. Bottom line plays on that same "{ = }" variable motif —
-    /// "LifeVars" assigned to a category emoji instead of the item's real
-    /// name, the deliberate ceiling described above.
+    /// A big, bold "{ = }" — the same brand mark used on LockScreenView and
+    /// the Watch app's ask screen — as the dominant element, the way most
+    /// apps lead with their actual logo on a Lock Screen widget rather than
+    /// small captioned text. The category emoji is still there, just as a
+    /// small secondary detail underneath/beside it, not competing for
+    /// attention with the mark itself.
+    @ViewBuilder
     private var content: some View {
-        VStack(spacing: 2) {
-            Text("{ = }")
-                .font(.system(size: 14, weight: .medium, design: .monospaced))
-            Text("{ LifeVars = \(entry.category?.emoji ?? "?") }")
-                .font(.system(size: 9, weight: .medium, design: .monospaced))
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
+        switch family {
+        case .accessoryCircular:
+            VStack(spacing: 1) {
+                Text("{=}")
+                    .font(.system(size: 22, weight: .bold, design: .monospaced))
+                if let emoji = entry.category?.emoji {
+                    Text(emoji)
+                        .font(.system(size: 11))
+                }
+            }
+            .widgetAccentable()
+        default:
+            HStack(spacing: 8) {
+                Text("{ = }")
+                    .font(.system(size: 26, weight: .bold, design: .monospaced))
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("LifeVars")
+                        .font(.system(size: 12, weight: .semibold))
+                    if let emoji = entry.category?.emoji {
+                        Text(emoji)
+                            .font(.system(size: 11))
+                    }
+                }
+            }
+            .widgetAccentable()
         }
-        .widgetAccentable()
     }
 }
 
