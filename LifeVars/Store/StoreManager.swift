@@ -75,6 +75,13 @@ final class StoreManager: ObservableObject {
     }
 
     private func refreshEntitlement() async {
+        #if DEBUG
+        // Any build compiled locally (Xcode Run, not TestFlight/App Store)
+        // is unlimited with no purchase involved — this block is stripped
+        // entirely from Release builds, so it has no effect on what ships.
+        isPro = true
+        return
+        #else
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result, transaction.productID == Self.proProductID {
                 isPro = true
@@ -82,6 +89,7 @@ final class StoreManager: ObservableObject {
             }
         }
         isPro = false
+        #endif
     }
 
     private func observeTransactionUpdates() async {
