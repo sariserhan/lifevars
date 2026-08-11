@@ -1,4 +1,4 @@
-# LifeVars — V1 Screen & Interaction Specification
+# QuickVars — V1 Screen & Interaction Specification
 
 Build spec for native SwiftUI, iOS only, no backend. Companion to `PLAN.md` (product plan). Defines every screen, state, and transition needed to ship V1.
 
@@ -10,16 +10,16 @@ Feel: a built-in iPhone utility, not a database app or password manager. No tab 
 
 If any feature below conflicts with one of these, the invariant wins. Not a checklist to revisit later — a constraint on every screen and every line of §2–§15.
 
-1. Plaintext LifeVar values never leave the device.
+1. Plaintext QuickVar values never leave the device.
 2. Plaintext values are never logged, never enter analytics or crash reports.
 3. Plaintext values are never sent to Siri, and never spoken by the app.
 4. Plaintext values (and the search/voice queries used to find them) are never sent to a server — voice transcription is on-device only, with no fallback (§4).
 5. Plaintext values never appear in notifications, app-switcher snapshots, or Spotlight indexing.
 6. A value is decrypted only for the single record being shown, only inside an active Reveal/Edit screen — never bulk-decrypted into memory.
 7. The decrypted name/alias index (§15) is discarded the moment the session locks.
-8. No networking dependency is required to unlock or retrieve a LifeVar. No cloud fallback exists in V1.
+8. No networking dependency is required to unlock or retrieve a QuickVar. No cloud fallback exists in V1.
 
-**Not a password manager.** LifeVars is for facts you look up occasionally — VIN, EIN, passport number, insurance ID, account numbers, filter sizes, paint colors. It is explicitly not the place for bank passwords, Apple ID credentials, crypto seed phrases, or 2FA recovery codes — nothing in the product stops a user from typing one in, but nothing in the marketing or onboarding should suggest that's the intended use. That's a different security bar than this spec is designed for.
+**Not a password manager.** QuickVars is for facts you look up occasionally — VIN, EIN, passport number, insurance ID, account numbers, filter sizes, paint colors. It is explicitly not the place for bank passwords, Apple ID credentials, crypto seed phrases, or 2FA recovery codes — nothing in the product stops a user from typing one in, but nothing in the marketing or onboarding should suggest that's the intended use. That's a different security bar than this spec is designed for.
 
 ---
 
@@ -51,7 +51,7 @@ Three screens, swipeable, Next to advance.
 ```
 ┌────────────────────────────┐
 │         [app icon]         │
-│         LifeVars            │
+│         QuickVars            │
 │  The things you shouldn't  │
 │     have to remember.      │
 │                    Next →   │
@@ -78,7 +78,7 @@ Static example list, not interactive.
 ```
 ┌────────────────────────────┐
 │   Only you can open        │
-│        LifeVars              │
+│        QuickVars              │
 │                             │
 │  Protected with Face ID     │
 │  and encrypted on this      │
@@ -90,17 +90,17 @@ Static example list, not interactive.
 │  Stored only on this        │
 │  device — losing your       │
 │  phone means losing your    │
-│  LifeVars until backup      │
+│  QuickVars until backup      │
 │  ships.                     │
 └────────────────────────────┘
 ```
 
 - **Enable Face ID** → `LAContext.evaluatePolicy` fires immediately. Success or failure, this is also enrollment — proceed either way; failure just sets `biometricEnabled = false` with a toast ("You can enable this later in Settings"). On success, `biometricEnabled = true` and `unlockMethod` defaults to **Face ID Only** (§2.4).
 - **Set up later** → `biometricEnabled = false`; the session gate has no biometric option and runs on device passcode alone until Face ID is turned on later in Settings.
-- `biometricEnabled`/`unlockMethod` only decide *which* local auth policy the session gate uses — they never disable the gate itself. **There is no unauthenticated path into LifeVars in V1** (see §2).
+- `biometricEnabled`/`unlockMethod` only decide *which* local auth policy the session gate uses — they never disable the gate itself. **There is no unauthenticated path into QuickVars in V1** (see §2).
 - The no-recovery line stays on-screen, not a dismissible dialog — it's the single most important expectation to set for a device-only app, and it belongs where the user is already thinking about security, not buried in Settings.
 
-### 1.4 First LifeVar
+### 1.4 First QuickVar
 
 Immediately after Face ID setup (enabled or skipped), before Home:
 
@@ -136,7 +136,7 @@ Shown: on cold launch (after onboarding), and any time the app returns to foregr
 │                             │
 │         { = }               │
 │                             │
-│       LifeVars               │
+│       QuickVars               │
 │                             │
 │         [ Unlock ]          │
 │                             │
@@ -180,7 +180,7 @@ Chosen in Settings (§11); default is set automatically at Face ID enrollment (�
 - **Face ID + Device Passcode** — Keychain access control `.userPresence`, evaluated with `.deviceOwnerAuthentication`. Either unlocks the app.
 - If biometrics were never enrolled ("Set up later" in §1.3), there is no Face ID Only option — the gate runs on passcode alone until Face ID is turned on from Settings.
 
-**Trade-off to disclose at the point of choice, not bury**: `.biometryCurrentSet` is invalidated automatically by iOS the moment the user adds, removes, or re-enrolls a Face ID face — this is platform behavior, not a bug. With no passcode fallback and no backup in V1, that means **every LifeVar becomes permanently unrecoverable** the next time Face ID enrollment changes. Show this inline under the Face ID Only option: "If your Face ID settings change, your LifeVars cannot be recovered." `.userPresence` mode does not have this failure mode — a passcode change or new enrolled face doesn't affect it. Don't let a user land on the stronger mode without seeing that sentence.
+**Trade-off to disclose at the point of choice, not bury**: `.biometryCurrentSet` is invalidated automatically by iOS the moment the user adds, removes, or re-enrolls a Face ID face — this is platform behavior, not a bug. With no passcode fallback and no backup in V1, that means **every QuickVar becomes permanently unrecoverable** the next time Face ID enrollment changes. Show this inline under the Face ID Only option: "If your Face ID settings change, your QuickVars cannot be recovered." `.userPresence` mode does not have this failure mode — a passcode change or new enrolled face doesn't affect it. Don't let a user land on the stronger mode without seeing that sentence.
 
 ---
 
@@ -188,7 +188,7 @@ Chosen in Settings (§11); default is set automatically at Face ID enrollment (�
 
 ```
 ┌──────────────────────────────────┐
-│ LifeVars                   🔒 ⚙︎ │
+│ QuickVars                   🔒 ⚙︎ │
 │                                  │
 │ What do you need?                │
 │ ┌──────────────────────────────┐ │
@@ -231,7 +231,7 @@ The toggle state persists across launches (`@AppStorage`). Search still applies 
 
 ```
 ┌────────────────────────────┐
-│ LifeVars                    │
+│ QuickVars                    │
 │                             │
 │         { = }                │
 │                             │
@@ -241,7 +241,7 @@ The toggle state persists across launches (`@AppStorage`). Search still applies 
 │  details you never want     │
 │  to look up again.          │
 │                             │
-│    [ Add a LifeVar ]        │
+│    [ Add a QuickVar ]        │
 └────────────────────────────┘
 ```
 
@@ -294,7 +294,7 @@ then strip conversational filler and run it through the matcher (§9.2):
 
 Mic permission denied: inline text under the search bar ("Enable microphone access in Settings"), mic icon disabled but visible.
 
-No text-to-speech, ever. LifeVars never speaks a value back.
+No text-to-speech, ever. QuickVars never speaks a value back.
 
 ---
 
@@ -331,14 +331,14 @@ No text-to-speech, ever. LifeVars never speaks a value back.
 
 ---
 
-## 6. Adding a LifeVar
+## 6. Adding a QuickVar
 
 Two-step wizard, not a single dense form — the suggestions are what remove the "what do I even call this" friction.
 
 ### 6.1 Step 1 — name
 
 ```
-Add a LifeVar
+Add a QuickVar
 
 What do you want to remember?
 
@@ -406,7 +406,7 @@ Audi VIN
 **Edit** opens:
 
 ```
-Edit LifeVar
+Edit QuickVar
 
 Name
 Audi VIN
@@ -431,7 +431,7 @@ Save
 
 ## 8. Sensitivity / security level
 
-**No per-item setting in V1.** Every LifeVar is protected identically — the product's predictability ("every LifeVar is protected") is worth more than granular control right now. Don't add a Sensitivity picker to the Add/Edit UI at all; a stub field a user can't act on is worse than no field. Revisit a `standard` / `always Face ID` split in V1.1 only if the always-authenticate model proves annoying in practice.
+**No per-item setting in V1.** Every QuickVar is protected identically — the product's predictability ("every QuickVar is protected") is worth more than granular control right now. Don't add a Sensitivity picker to the Add/Edit UI at all; a stub field a user can't act on is worse than no field. Revisit a `standard` / `always Face ID` split in V1.1 only if the always-authenticate model proves annoying in practice.
 
 ---
 
@@ -469,7 +469,7 @@ Formatting-on-display (SSN → `123-45-6789`, EIN → `12-3456789`) is a pure di
 One function, used by both:
 
 1. Normalize (lowercase, strip punctuation).
-2. Strip conversational filler — a fixed stop-phrase list (`what's`, `what is`, `whats`, `my`, `show me`, `give me`, `tell me`, `can you`, `number`, `please`, `for`, `the`) removed as whole words, not substrings. This is what turns "Can you give me the VIN for my Audi?" into `vin audi` before matching even starts — voice output is conversational, LifeVar names aren't, and this one preprocessing step closes that gap without any ML.
+2. Strip conversational filler — a fixed stop-phrase list (`what's`, `what is`, `whats`, `my`, `show me`, `give me`, `tell me`, `can you`, `number`, `please`, `for`, `the`) removed as whole words, not substrings. This is what turns "Can you give me the VIN for my Audi?" into `vin audi` before matching even starts — voice output is conversational, QuickVar names aren't, and this one preprocessing step closes that gap without any ML.
 3. Exact match against name or alias → confidence: exact.
 4. Substring match either direction → confidence: partial.
 5. Token match: all remaining words in the query appear somewhere in name/aliases, any order.
@@ -503,7 +503,7 @@ Unlock Method                Face ID Only ›
 Auto-hide                    30 seconds
 Lock when app backgrounds    On
 
-LIFEVARS PRO
+QUICKVARS PRO
 3 of 5 used · Upgrade →
 
 APPEARANCE
@@ -512,7 +512,7 @@ System / Light / Dark
 ABOUT
 Privacy
 Security
-About LifeVars
+About QuickVars
 Version 1.0
 ```
 
@@ -520,15 +520,15 @@ Version 1.0
 - **Auto-hide**: the Reveal-screen countdown duration (§5), default 30s. A simple picker (10s / 20s / 30s / 60s) — no need for a continuous slider.
 - **Lock when app backgrounds**: drives §2.3. Default On.
 - **Export Encrypted Backup / Restore from Backup**: post-plan addition, §19.6 — both gated behind Pro, matching the paywall's promise.
-- **LifeVars Pro**: shows `X of 3 used` on free tier, opens PaywallView (§11.1) on tap; shows "Pro — Unlimited" with no tap target once purchased.
+- **QuickVars Pro**: shows `X of 3 used` on free tier, opens PaywallView (§11.1) on tap; shows "Pro — Unlimited" with no tap target once purchased.
 - **About → Privacy/Security**: static screens explaining local-only storage and the encryption model in plain language — this is the app's actual marketing claim, worth getting right, not boilerplate legal text.
 
 ### 11.1 Paywall
 
 ```
-      LifeVars Pro
+      QuickVars Pro
 
-   Unlimited LifeVars
+   Unlimited QuickVars
    Siri integration
    Encrypted backup
 
@@ -538,13 +538,13 @@ Version 1.0
      Restore Purchase
 ```
 
-Voice retrieval, search, and Face ID protection are part of the **free** experience — the "ask and get an instant answer" loop is the entire pitch, and paywalling it means a free user never sees what LifeVars actually is. Free tier is capped at 3 items total, not 3 voice queries or 3/month. Pro removes the item cap and unlocks Siri and Encrypted Backup (§19.6) — both post-plan additions, both fully built, no "(soon)" qualifier needed. StoreKit 2, single non-consumable, per PLAN.md §17. Limit checked at Save time (§6.2).
+Voice retrieval, search, and Face ID protection are part of the **free** experience — the "ask and get an instant answer" loop is the entire pitch, and paywalling it means a free user never sees what QuickVars actually is. Free tier is capped at 3 items total, not 3 voice queries or 3/month. Pro removes the item cap and unlocks Siri and Encrypted Backup (§19.6) — both post-plan additions, both fully built, no "(soon)" qualifier needed. StoreKit 2, single non-consumable, per PLAN.md §17. Limit checked at Save time (§6.2).
 
 ---
 
 ## 12. App icon
 
-Original guidance: avoid padlock / shield / key / fingerprint — every security app uses those, and LifeVars' security should be an attribute, not the brand — and use the `{ = }` motif from the empty state (§3.1) instead. That version was built first (hand-rendered, `Assets.xcassets/AppIcon.appiconset`) and works as a fallback.
+Original guidance: avoid padlock / shield / key / fingerprint — every security app uses those, and QuickVars' security should be an attribute, not the brand — and use the `{ = }` motif from the empty state (§3.1) instead. That version was built first (hand-rendered, `Assets.xcassets/AppIcon.appiconset`) and works as a fallback.
 
 **Deviation, by direct request**: the shipped icon is a fingerprint/shield "V" monogram, which is exactly the imagery this section originally said to avoid. Flagged, not silently overridden — worth a second look at actual Home Screen (60pt) and Settings-row (29pt) scale, since fine ridge linework and glow effects are the kind of detail that tends to blur out at those sizes; not yet confirmed on a real device or Simulator Home Screen.
 
@@ -555,31 +555,31 @@ Original guidance: avoid padlock / shield / key / fingerprint — every security
 Build only after the core loop (step 9 in §16) is solid — don't start here.
 
 ```
-"Siri, ask LifeVars for my Audi VIN"
+"Siri, ask QuickVars for my Audi VIN"
         │
         ▼
   query = "Audi VIN" → matched against name/alias index
         │
         ▼
-  LifeVars needs to authenticate you.
-        [ Open LifeVars ]
+  QuickVars needs to authenticate you.
+        [ Open QuickVars ]
         │
         ▼
   Open → LockScreen/session gate (§2) → Reveal
 ```
 
-Hard rule for `FindLifeVarIntent`, not a nice-to-have: **it never returns the decrypted value to Siri, ever** — no spoken result, no Siri-rendered snippet containing the value. It can at most hand back a match confirmation and deep-link into the app to finish the reveal through the normal gate.
+Hard rule for `FindQuickVarIntent`, not a nice-to-have: **it never returns the decrypted value to Siri, ever** — no spoken result, no Siri-rendered snippet containing the value. It can at most hand back a match confirmation and deep-link into the app to finish the reveal through the normal gate.
 
-§19.5 adds a **second, separate intent** (`CheckLifeVarIntent`) that deliberately breaks this rule — on direct request, and narrowly. Both intents stay registered; `FindLifeVarIntent` remains the "open the app properly" path.
+§19.5 adds a **second, separate intent** (`CheckQuickVarIntent`) that deliberately breaks this rule — on direct request, and narrowly. Both intents stay registered; `FindQuickVarIntent` remains the "open the app properly" path.
 
 ---
 
 ## 14. Data model
 
 ```swift
-struct LifeVar {
+struct QuickVar {
     let id: UUID
-    var encryptedMetadata: Data   // AES-GCM ciphertext of LifeVarMetadata below
+    var encryptedMetadata: Data   // AES-GCM ciphertext of QuickVarMetadata below
     var encryptedValue: Data      // AES-GCM ciphertext of the raw value string
     var emergencyPayload: Data?   // §19.2 — sealed under a DIFFERENT, weaker-gated key; nil for most items
     var createdAt: Date
@@ -590,7 +590,7 @@ struct LifeVar {
 // Serialized (e.g. JSON) and encrypted together as encryptedMetadata — a category
 // like "identity" sitting in plaintext next to "financial" and "business" rows is
 // itself information about what someone stores here, so it doesn't get a free pass.
-struct LifeVarMetadata: Codable {
+struct QuickVarMetadata: Codable {
     var name: String
     var aliases: [String]
     var category: Category?
@@ -598,7 +598,7 @@ struct LifeVarMetadata: Codable {
     var expiresAt: Date?              // §19.1
     var deleteOnExpiration: Bool      // §19.1 — "temporary" items vs. items that just notify
     var isEmergencyAccessible: Bool   // §19.2 — flag only; the readable copy lives in emergencyPayload above
-    var isPinned: Bool                // §19.4 — at most one true at a time, enforced in LifeVarStore
+    var isPinned: Bool                // §19.4 — at most one true at a time, enforced in QuickVarStore
 }
 
 enum Category: String, Codable {
@@ -629,18 +629,18 @@ One key, one place it's protected, one way it's evaluated. Not a menu of options
 
 ### 15.2 Edge cases — the part most likely to get improvised wrong
 
-- **Face ID enrollment changes** (Face ID Only mode, `.biometryCurrentSet`): iOS invalidates the Keychain item *permanently* the moment the user adds, removes, or re-enrolls a face. The next unlock attempt fails with a distinct Keychain error, not a wrong-auth error — detect it and show a dedicated message ("Your device's Face ID settings changed. This can't be undone — LifeVars data protected under Face ID Only cannot be recovered without a backup.") rather than looping the user on a retry button that will never succeed. This is the documented cost of the stronger mode (§2.4), not a bug to work around.
+- **Face ID enrollment changes** (Face ID Only mode, `.biometryCurrentSet`): iOS invalidates the Keychain item *permanently* the moment the user adds, removes, or re-enrolls a face. The next unlock attempt fails with a distinct Keychain error, not a wrong-auth error — detect it and show a dedicated message ("Your device's Face ID settings changed. This can't be undone — QuickVars data protected under Face ID Only cannot be recovered without a backup.") rather than looping the user on a retry button that will never succeed. This is the documented cost of the stronger mode (§2.4), not a bug to work around.
 - **Device passcode removed entirely**: iOS invalidates Keychain items behind any biometric/passcode access control when the passcode itself is removed (Face ID requires a passcode to exist at all). Same permanent-loss consequence. Not worth a proactive check at every launch, but worth a one-time launch-time check for "no passcode set" so the failure mode is explained rather than silent.
 - **Keychain item missing/corrupted** (rare, but happens after OS-level Keychain resets): treat as "cannot decrypt," not a crash — show the same clear, distinct error rather than an infinite retry loop.
-- **Reinstall**: uninstalling LifeVars deletes the app's local database (standard sandbox deletion) regardless of what happens to the Keychain item. Reinstalling always starts empty. This is exactly why the no-recovery warning in onboarding (§1.3) matters — it's not a hypothetical.
-- **Restore to a new/wiped device from iCloud/iTunes backup**: Keychain items with `.ThisDeviceOnly` accessibility never restore to a different device by design — so if the local database file *did* restore via a normal app-data backup, it would land on the new device with no key able to decrypt it, which reads as silent corruption. Avoid that state entirely: mark the local database file `isExcludedFromBackup = true`. A device restore should leave LifeVars empty, not full of undecryptable ciphertext.
+- **Reinstall**: uninstalling QuickVars deletes the app's local database (standard sandbox deletion) regardless of what happens to the Keychain item. Reinstalling always starts empty. This is exactly why the no-recovery warning in onboarding (§1.3) matters — it's not a hypothetical.
+- **Restore to a new/wiped device from iCloud/iTunes backup**: Keychain items with `.ThisDeviceOnly` accessibility never restore to a different device by design — so if the local database file *did* restore via a normal app-data backup, it would land on the new device with no key able to decrypt it, which reads as silent corruption. Avoid that state entirely: mark the local database file `isExcludedFromBackup = true`. A device restore should leave QuickVars empty, not full of undecryptable ciphertext.
 
 ---
 
 ## 16. V1 development order
 
 1. SwiftUI shell + navigation skeleton (§0)
-2. `LifeVar` model + local encrypted store
+2. `QuickVar` model + local encrypted store
 3. Keychain key management (§15)
 4. Face ID/passcode session gate (§2) — LockScreen + `requireUnlockedSession()`
 5. Add/Edit/Delete (§6, §7) — CRUD working end to end behind the gate
@@ -665,7 +665,7 @@ Do not start with Siri or animation polish. Prove `ADD → ENCRYPT → LOCK → 
 The definition of done:
 
 1. Install. Add `Audi VIN = WAU123456789`.
-2. Close LifeVars. Reopen → LockScreen, not Home.
+2. Close QuickVars. Reopen → LockScreen, not Home.
 3. Face ID → Home.
 4. Tap mic, say "What's my Audi VIN?"
 5. Within ~1 second: `Audi VIN / WAU123456789 / Copy` — no second Face ID prompt.
@@ -691,9 +691,9 @@ Features built after the original 16-step plan (§16) closed out, in response to
 
 ### 19.1 Expiration & temporary items
 
-Any LifeVar can carry an optional `expiresAt`. Two independent behaviors branch on it:
+Any QuickVar can carry an optional `expiresAt`. Two independent behaviors branch on it:
 
-- **Notify only** (`deleteOnExpiration == false`, the default when `expiresAt` is set): a local notification fires ~90 days before `expiresAt` (or immediately if less than 90 days out) with generic, non-identifying copy ("Something you saved is expiring soon — open LifeVars to check.") — never the item's name, matching the never-leak-plaintext invariant. The item itself is untouched; this is a reminder, not an action.
+- **Notify only** (`deleteOnExpiration == false`, the default when `expiresAt` is set): a local notification fires ~90 days before `expiresAt` (or immediately if less than 90 days out) with generic, non-identifying copy ("Something you saved is expiring soon — open QuickVars to check.") — never the item's name, matching the never-leak-plaintext invariant. The item itself is untouched; this is a reminder, not an action.
 - **Temporary** (`deleteOnExpiration == true`, e.g. a hotel key code good for a day): no notification. Instead the item is silently deleted the next time the app is opened after `expiresAt` passes — an opportunistic sweep on every unlock (§2.2), not a background task or server, since there's no server. If nothing expired, the sweep is a no-op.
 
 Configured in Add/Edit via a simple picker (Never / 1 Day / 1 Week / Custom Date) plus a "delete automatically when expired" toggle shown once any expiration is set. RevealView shows a caption reflecting which mode applies ("Expires …" vs. "Deletes …").
@@ -703,7 +703,7 @@ Configured in Add/Edit via a simple picker (Never / 1 Day / 1 Week / Custom Date
 A deliberate, narrow, disclosed exception to "Face ID gates everything" (top-of-doc invariants) — modeled on Apple's own Medical ID trade-off: some information is more useful to a first responder unauthenticated than it is protected. Per-item opt-in only, off by default.
 
 - A **second Keychain key**, independent of the DEK (§15.1), with standard `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` protection and **no** biometric/passcode access control. This is what makes LockScreen-reachable-without-Face-ID access possible without weakening the real DEK's protection for anything else.
-- Opting an item in seals a minimal shadow copy (`{name, value}` only — no aliases, category, or format) under this key, stored in `LifeVar.emergencyPayload`.
+- Opting an item in seals a minimal shadow copy (`{name, value}` only — no aliases, category, or format) under this key, stored in `QuickVar.emergencyPayload`.
 - `LockScreenView` gets an "Emergency Info" button, **outside the session gate entirely**, opening a dedicated screen that lists only opted-in items with a persistent "Visible without Face ID" banner.
 - Deliberately **no** screen-recording guard on this one screen (unlike Reveal, §5) — an emergency responder may need to show it to someone else.
 - The onus is on the user to choose narrowly (blood type, allergies, an emergency contact, an insurance member ID) — the UI warns against opting in anything sensitive, but doesn't structurally prevent it. That's the accepted trade-off, not an oversight.
@@ -722,31 +722,31 @@ Phone (already unlocked): same Matcher (§9.2) as typed search/voice/Siri
 Watch: name + value + [Done]  — no scrolling, no folders
 ```
 
-If the phone is locked, the Watch shows "Open LifeVars on iPhone first" rather than attempting any auth of its own — there is no Watch-side auth flow, by design.
+If the phone is locked, the Watch shows "Open QuickVars on iPhone first" rather than attempting any auth of its own — there is no Watch-side auth flow, by design.
 
 ### 19.4 Lock Screen & Control Center widgets
 
 A `WidgetKit` extension, embedded the same way the Watch app is. Two pieces:
 
-- **Pinned Variable** (Lock Screen accessory widget): at most one LifeVar can be pinned at a time (configured via a toggle in Add/Edit; pinning a new one silently unpins the old one). The widget is a *shortcut*, never a *display*: it shows the app's `{ = }` mark plus `{ LifeVars = <category emoji> }`, e.g. a car emoji for a Vehicle-category pin — **never the item's name or value**. Showing the category specifically was a considered trade-off, not a default: the original design showed nothing but a generic lock glyph, and showing the actual pinned name was explicitly weighed and rejected (Lock Screen widgets are visible without any authentication at all, to anyone holding the phone) before landing on category as the bounded middle ground — enough to glance-recognize which pin it is, never enough to expose what it actually is. Both the id and the category are published across the App Group boundary (`Shared/AppGroupBridge.swift`), the same way `id` is already considered safe to store in the clear on disk (§14) — category is the one addition beyond that. Tapping it opens the app and still runs the full Face ID session gate (§2) before RevealView shows anything — the widget itself proves nothing and decrypts nothing.
-- **Ask LifeVars** (Control Center control, iOS 18+): one tap opens the app straight into Home with the mic already listening — same `openAppWhenRun` pattern as the Siri App Intent (§13): the control's action runs in the extension process, which structurally cannot hold a DEK, so all it can do is flag "start listening" for the main app to pick up once it's actually open and unlocked.
+- **Pinned Variable** (Lock Screen accessory widget): at most one QuickVar can be pinned at a time (configured via a toggle in Add/Edit; pinning a new one silently unpins the old one). The widget is a *shortcut*, never a *display*: it shows the app's `{ = }` mark plus `{ QuickVars = <category emoji> }`, e.g. a car emoji for a Vehicle-category pin — **never the item's name or value**. Showing the category specifically was a considered trade-off, not a default: the original design showed nothing but a generic lock glyph, and showing the actual pinned name was explicitly weighed and rejected (Lock Screen widgets are visible without any authentication at all, to anyone holding the phone) before landing on category as the bounded middle ground — enough to glance-recognize which pin it is, never enough to expose what it actually is. Both the id and the category are published across the App Group boundary (`Shared/AppGroupBridge.swift`), the same way `id` is already considered safe to store in the clear on disk (§14) — category is the one addition beyond that. Tapping it opens the app and still runs the full Face ID session gate (§2) before RevealView shows anything — the widget itself proves nothing and decrypts nothing.
+- **Ask QuickVars** (Control Center control, iOS 18+): one tap opens the app straight into Home with the mic already listening — same `openAppWhenRun` pattern as the Siri App Intent (§13): the control's action runs in the extension process, which structurally cannot hold a DEK, so all it can do is flag "start listening" for the main app to pick up once it's actually open and unlocked.
 
-### 19.5 Headless Siri check (`CheckLifeVarIntent`) — an explicit exception, not a precedent
+### 19.5 Headless Siri check (`CheckQuickVarIntent`) — an explicit exception, not a precedent
 
-By direct request: "Ask LifeVars to check my Audi VIN" → Face ID prompts as a system overlay, without the app ever opening → the value shows once as an inline Siri result. This is a **second, separate** App Intent from `FindLifeVarIntent` (§13), with `openAppWhenRun = false`, and it deliberately breaks §13's "never returns a decrypted value to Siri" rule — that rule still governs `FindLifeVarIntent`, which stays as the "open the app properly" path.
+By direct request: "Ask QuickVars to check my Audi VIN" → Face ID prompts as a system overlay, without the app ever opening → the value shows once as an inline Siri result. This is a **second, separate** App Intent from `FindQuickVarIntent` (§13), with `openAppWhenRun = false`, and it deliberately breaks §13's "never returns a decrypted value to Siri" rule — that rule still governs `FindQuickVarIntent`, which stays as the "open the app properly" path.
 
 What makes this an acceptable, bounded exception rather than a hole in the security model:
 
 - **Its own momentary auth, not the app's session.** `perform()` creates its own throwaway `LAContext` and fetches the DEK straight from `KeychainDEKStore` — the same Keychain-gated fetch that *is* the auth everywhere else (§15.1) — never touching `SessionManager`. Nothing persists after `perform()` returns; there's no session to leave unlocked.
-- **Never a notification.** The result renders as a Siri snippet (`LifeVarSnippetView`, `AppIntents`+`SwiftUI` cross-import's `.result(view:)`) shown once as part of the response the user just spoke. A local notification was explicitly considered and rejected: it would show on the Lock Screen by default (no unlock needed to read it), persist in Notification Center until manually cleared, and can mirror to other Apple-ID-linked devices via Handoff — a strictly worse leak surface than a one-time Siri response.
-- **Decrypt logic is shared, not duplicated.** `LifeVarLookup.lookup()` (`Data/LifeVarLookup.swift`) is the same decrypt-and-`Matcher.match` shape `LifeVarStore.reload()` uses, factored out so both build a `DecryptedIndexEntry` the same way (`DecryptedIndexEntry(id:metadata:)`) — a fix to the matcher applies to both call sites, not just one.
-- **Named caveat, not a hidden one**: the Siri snippet is system UI whose on-screen lifetime LifeVars doesn't control, unlike `RevealView`'s auto-hide/no-screen-recording guard (§5). And since Face ID authenticates *whoever's face is in front of the phone*, not *the request's origin*, this works the same whether the phone is locked or not — worth knowing before relying on it for something highly sensitive.
+- **Never a notification.** The result renders as a Siri snippet (`QuickVarSnippetView`, `AppIntents`+`SwiftUI` cross-import's `.result(view:)`) shown once as part of the response the user just spoke. A local notification was explicitly considered and rejected: it would show on the Lock Screen by default (no unlock needed to read it), persist in Notification Center until manually cleared, and can mirror to other Apple-ID-linked devices via Handoff — a strictly worse leak surface than a one-time Siri response.
+- **Decrypt logic is shared, not duplicated.** `QuickVarLookup.lookup()` (`Data/QuickVarLookup.swift`) is the same decrypt-and-`Matcher.match` shape `QuickVarStore.reload()` uses, factored out so both build a `DecryptedIndexEntry` the same way (`DecryptedIndexEntry(id:metadata:)`) — a fix to the matcher applies to both call sites, not just one.
+- **Named caveat, not a hidden one**: the Siri snippet is system UI whose on-screen lifetime QuickVars doesn't control, unlike `RevealView`'s auto-hide/no-screen-recording guard (§5). And since Face ID authenticates *whoever's face is in front of the phone*, not *the request's origin*, this works the same whether the phone is locked or not — worth knowing before relying on it for something highly sensitive.
 
 ### 19.6 Encrypted backup — a password, deliberately, not iCloud
 
 Considered full iCloud sync first and ruled it out: making synced data actually *readable* on another device means the encryption key has to leave this device too (via iCloud Keychain sync), which reverses the single most repeated promise in this app — the DEK is `ThisDeviceOnly` and never leaves, stated in onboarding, Settings → Privacy, and the marketing site. A manual, user-triggered encrypted export/import keeps that promise intact: nothing leaves the device automatically or silently, only when explicitly exported, and only into a file the user controls.
 
-- **Export** (`Settings/ExportBackupView.swift`): decrypts every record with the real DEK (`LifeVarStore.exportBackupItems()` — the only other place besides `revealValue()` that plaintext ever exists, and only transiently in memory), then immediately re-encrypts under a **user-chosen password** — not the DEK, since a backup has to open on a different device or after a reinstall, where the original DEK doesn't exist. `Backup/BackupCodec.swift` derives a key from that password via PBKDF2-HMAC-SHA256 (300,000 iterations, random 16-byte salt, both stored alongside the ciphertext in the file — not secret, standard practice, lets a future version raise the iteration count without breaking old backups) and seals the JSON payload with AES-GCM, same primitive as everywhere else (§15.1). The resulting `.lifevarsbackup` file is hers to save wherever she wants via `ShareLink` — Files, iCloud Drive, AirDrop, none of it automatic.
-- **Restore** (`Settings/RestoreBackupView.swift`): picks a file, prompts for the password, decrypts, and calls `LifeVarStore.importBackupItems()` — which adds every item as new via the same `add()` the UI uses, so emergency-payload sealing, expiration reminders, and single-pin enforcement all happen for free. Deliberately no de-duplication or overwrite-by-name: a restore should never silently clobber something already on the device.
+- **Export** (`Settings/ExportBackupView.swift`): decrypts every record with the real DEK (`QuickVarStore.exportBackupItems()` — the only other place besides `revealValue()` that plaintext ever exists, and only transiently in memory), then immediately re-encrypts under a **user-chosen password** — not the DEK, since a backup has to open on a different device or after a reinstall, where the original DEK doesn't exist. `Backup/BackupCodec.swift` derives a key from that password via PBKDF2-HMAC-SHA256 (300,000 iterations, random 16-byte salt, both stored alongside the ciphertext in the file — not secret, standard practice, lets a future version raise the iteration count without breaking old backups) and seals the JSON payload with AES-GCM, same primitive as everywhere else (§15.1). The resulting `.quickvarsbackup` file is hers to save wherever she wants via `ShareLink` — Files, iCloud Drive, AirDrop, none of it automatic.
+- **Restore** (`Settings/RestoreBackupView.swift`): picks a file, prompts for the password, decrypts, and calls `QuickVarStore.importBackupItems()` — which adds every item as new via the same `add()` the UI uses, so emergency-payload sealing, expiration reminders, and single-pin enforcement all happen for free. Deliberately no de-duplication or overwrite-by-name: a restore should never silently clobber something already on the device.
 - **Gated behind Pro**, matching what the paywall already promised (§11.1) before this existed.
 - Wrong password and a corrupted file produce the *same* error message on purpose — telling an attacker "the password was wrong" vs. "the file is malformed" is free information a legitimate user restoring their own backup doesn't need split out.

@@ -1,18 +1,18 @@
 import Foundation
 
-/// Shared between the main app and the LifeVarsWidgets extension via the App
+/// Shared between the main app and the QuickVarsWidgets extension via the App
 /// Group entitlement — the only channel available across that process
 /// boundary. Carries no plaintext value or name, ever: just an opaque item
-/// id (already considered safe to store in the clear, same as `LifeVar.id`
+/// id (already considered safe to store in the clear, same as `QuickVar.id`
 /// on disk — SPEC.md §14) and a one-shot action flag.
 enum AppGroup {
-    static let id = "group.com.serhansari.LifeVars"
+    static let id = "group.com.serhansari.QuickVars"
 }
 
 enum WidgetBridge {
-    /// Matches PinnedVariableWidget's `kind` — shared so LifeVarStore can
+    /// Matches PinnedVariableWidget's `kind` — shared so QuickVarStore can
     /// tell WidgetKit to reload the right widget after pinnedItemID changes.
-    static let pinnedWidgetKind = "com.serhansari.LifeVars.widgets.pinned"
+    static let pinnedWidgetKind = "com.serhansari.QuickVars.widgets.pinned"
 
     private enum Key {
         static let pinnedItemID = "widget.pinnedItemID"
@@ -22,7 +22,7 @@ enum WidgetBridge {
 
     private static var defaults: UserDefaults? { UserDefaults(suiteName: AppGroup.id) }
 
-    /// Written by LifeVarStore.reload() whenever the pinned item changes;
+    /// Written by QuickVarStore.reload() whenever the pinned item changes;
     /// read by the Lock Screen widget's timeline provider to know whether a
     /// pin exists. Never the item's name or value.
     static var pinnedItemID: UUID? {
@@ -45,7 +45,7 @@ enum WidgetBridge {
         set { defaults?.set(newValue?.rawValue, forKey: Key.pinnedItemCategory) }
     }
 
-    /// Set by the Control Center "Ask LifeVars" control's AppIntent, which
+    /// Set by the Control Center "Ask QuickVars" control's AppIntent, which
     /// runs in the extension process; consumed once by the main app on next
     /// foreground — the cross-process analog of PendingSiriQuery, which can
     /// stay in-memory only because Siri intents run in-process here.

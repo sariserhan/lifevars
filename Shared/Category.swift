@@ -4,7 +4,7 @@ import Foundation
 /// product direction) an optional manual pick + display grouping in Home.
 /// Still never a folder in the storage sense: every item lives in one flat
 /// store regardless of category, grouping is purely a Home display mode.
-/// Shared with LifeVarsWidgets so the Pinned Variable widget can show a
+/// Shared with QuickVarsWidgets so the Pinned Variable widget can show a
 /// category icon without ever learning the pinned item's name (§19.4).
 enum Category: String, Codable, CaseIterable, Hashable {
     case identity, vehicle, home, business, insurance, financial, membership, other
