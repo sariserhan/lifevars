@@ -47,11 +47,15 @@ struct PinnedVariableWidgetView: View {
             }
     }
 
+    /// Same brand mark as LockScreenView/the Watch app's ask screen — a
+    /// literal "{ = }" glyph, not an SF Symbol. Always reads "LifeVars",
+    /// pinned or not; tap behavior (via widgetURL above) is what actually
+    /// differs when nothing's pinned yet.
     private var content: some View {
         VStack(spacing: 2) {
-            Image(systemName: entry.pinnedItemID != nil ? "lock.fill" : "pin.slash")
-                .font(.system(size: 18))
-            Text(entry.pinnedItemID != nil ? "Pinned" : "Not Set")
+            Text("{ = }")
+                .font(.system(size: 16, weight: .medium, design: .monospaced))
+            Text("LifeVars")
                 .font(.system(size: 10))
         }
         .widgetAccentable()
