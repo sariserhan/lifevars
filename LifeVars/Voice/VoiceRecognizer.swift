@@ -22,6 +22,9 @@ final class VoiceRecognizer: ObservableObject {
     private var task: SFSpeechRecognitionTask?
     private var silenceTimer: Timer?
     private var onFinish: ((String) -> Void)?
+    /// Distinguishes "still waiting for you to start talking" from "you
+    /// were talking and stopped" — see resetSilenceTimer().
+    private var hasReceivedSpeech = false
 
     init() {
         recognizer = SFSpeechRecognizer(locale: .current)
@@ -112,6 +115,7 @@ final class VoiceRecognizer: ObservableObject {
             return
         }
 
+        hasReceivedSpeech = false
         state = .listening
         resetSilenceTimer()
 
@@ -124,7 +128,9 @@ final class VoiceRecognizer: ObservableObject {
                 // same closure re-firing and showing a bogus error.
                 guard let self, self.state == .listening else { return }
                 if let result {
-                    self.transcript = result.bestTranscription.formattedString
+                    let text = result.bestTranscription.formattedString
+                    if !text.isEmpty { self.hasReceivedSpeech = true }
+                    self.transcript = text
                     self.resetSilenceTimer()
                 }
                 if error != nil {
@@ -142,10 +148,20 @@ final class VoiceRecognizer: ObservableObject {
         }
     }
 
-    /// SPEC.md §4 — end-of-speech is ~1.2s of silence, not a fixed recording length.
+    /// SPEC.md §4 — end-of-speech is ~1.2s of silence, not a fixed recording
+    /// length. That 1.2s only applies *after* we've actually heard some
+    /// speech, though — on a real device, connecting to the local speech
+    /// recognizer and fetching its on-device asset has its own latency
+    /// (observed ~200ms+ on first use), on top of normal human reaction
+    /// time to start talking after seeing "Listening...". A flat 1.2s
+    /// timer starting the instant listening begins routinely fired before
+    /// the very first word came back — indistinguishable from silence, the
+    /// mic just closing itself almost immediately. Give it a longer grace
+    /// period up front; only tighten to 1.2s once real speech is flowing.
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
-        silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false) { [weak self] _ in
+        let interval: TimeInterval = hasReceivedSpeech ? 1.2 : 5.0
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] _ in
             Task { @MainActor in self?.finish() }
         }
     }
