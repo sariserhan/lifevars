@@ -50,7 +50,7 @@ struct PinnedVariableWidgetView: View {
 }
 
 struct PinnedVariableWidget: Widget {
-    let kind = "com.serhansari.LifeVars.widgets.pinned"
+    let kind = WidgetBridge.pinnedWidgetKind
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: PinnedVariableProvider()) { entry in

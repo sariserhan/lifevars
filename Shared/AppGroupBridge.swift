@@ -10,6 +10,10 @@ enum AppGroup {
 }
 
 enum WidgetBridge {
+    /// Matches PinnedVariableWidget's `kind` — shared so LifeVarStore can
+    /// tell WidgetKit to reload the right widget after pinnedItemID changes.
+    static let pinnedWidgetKind = "com.serhansari.LifeVars.widgets.pinned"
+
     private enum Key {
         static let pinnedItemID = "widget.pinnedItemID"
         static let pendingActivateVoice = "widget.pendingActivateVoice"

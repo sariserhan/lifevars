@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import Combine
 import CryptoKit
+import WidgetKit
 
 /// SPEC.md §15.1 — the in-memory index (names/aliases/category only, never
 /// values) that Home/search read from. Populated by decrypting every record's
@@ -116,6 +117,11 @@ final class LifeVarStore: ObservableObject {
         // Widgets/PinnedVariableWidget.swift reads this across the App Group
         // boundary — only ever an id, never the pinned item's name or value.
         WidgetBridge.pinnedItemID = items.first(where: \.isPinned)?.id
+        // The widget's own Timeline policy is .never — it only re-renders
+        // when told to. Without this, a widget already on the Lock Screen
+        // would keep showing whatever it rendered the first time it was
+        // added, forever, regardless of what gets pinned/unpinned afterward.
+        WidgetCenter.shared.reloadTimelines(ofKind: WidgetBridge.pinnedWidgetKind)
     }
 
     /// "hotel key code" case from the expiration metadata discussion: items
