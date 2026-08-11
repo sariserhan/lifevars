@@ -36,6 +36,15 @@ struct PinnedVariableWidgetView: View {
     var body: some View {
         content
             .widgetURL(entry.pinnedItemID.flatMap { URL(string: "lifevars://reveal?id=\($0.uuidString)") })
+            // Required since iOS 17 for every widget family, Lock Screen
+            // accessories included — without it the system shows a "Please
+            // adopt containerBackground API" placeholder instead of any
+            // actual content. Lock Screen accessory families are always
+            // rendered tinted/monochrome by the system regardless of what's
+            // here, so an empty background is correct, not a placeholder.
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
     }
 
     private var content: some View {
