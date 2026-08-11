@@ -43,7 +43,11 @@ struct AddVariableView: View {
         }
     }
 
-    init(prefillName: String? = nil) {
+    // ponytail: prefillValue/prefillExpiresAt only ever set by
+    // ScreenshotSeed (App Store screenshot tooling) to land on this screen
+    // mid-entry without fragile UI automation — real call sites never pass
+    // them, so this is a no-op outside a screenshot launch.
+    init(prefillName: String? = nil, prefillValue: String? = nil, prefillExpiresAt: Date? = nil) {
         if let prefillName, !prefillName.trimmingCharacters(in: .whitespaces).isEmpty {
             let resolved = Classification.classify(name: prefillName)
             _name = State(initialValue: prefillName)
@@ -57,6 +61,14 @@ struct AddVariableView: View {
             _aliases = State(initialValue: [])
             _format = State(initialValue: nil)
             _step = State(initialValue: 1)
+        }
+        if let prefillValue {
+            _value = State(initialValue: prefillValue)
+            _isValueVisible = State(initialValue: true)
+        }
+        if let prefillExpiresAt {
+            _expirationChoice = State(initialValue: .custom)
+            _customExpiresAt = State(initialValue: prefillExpiresAt)
         }
     }
 

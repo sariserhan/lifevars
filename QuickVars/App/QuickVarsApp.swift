@@ -21,6 +21,29 @@ struct QuickVarsApp: App {
         // Apple Watch relay (Connectivity/PhoneConnectivitySession.swift) —
         // thin client, never holds a key, only ever asks this phone process.
         watchSession = PhoneConnectivitySession(session: sessionManager, store: quickVarStore)
+
+        #if DEBUG
+        // ponytail: App Store screenshot tooling only, see ScreenshotSeed.swift.
+        if ScreenshotSeed.isActive {
+            UserDefaults.standard.set(true, forKey: UserSettings.Keys.hasCompletedOnboarding)
+            UserDefaults.standard.set(true, forKey: UserSettings.Keys.hasSeenFirstQuickVarPrompt)
+            Task { @MainActor in
+                await sessionManager.unlock()
+                ScreenshotSeed.seedIfNeeded(store: quickVarStore)
+                switch ScreenshotSeed.screen {
+                case "lock", "emergency":
+                    // Both want the session-gate screen, not Home.
+                    sessionManager.lock()
+                case "reveal":
+                    if let audi = quickVarStore.items.first(where: { $0.name == "Audi VIN" }) {
+                        PendingDeepLink.shared.revealItemID = audi.id
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        #endif
     }
 
     var body: some Scene {

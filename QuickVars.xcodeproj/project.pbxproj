@@ -47,6 +47,7 @@
 		A11C7756296ED16D4D27AB7D /* QuickVarsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A54A24168CE4AC50A72F1 /* QuickVarsApp.swift */; };
 		A3B73939A55F4918EF154218 /* QuickVarsWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B0924CD49C7A63248F19 /* QuickVarsWidgetsBundle.swift */; };
 		A4E6034B7626AEF4C7329E5C /* AddVariableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E711EC9E661072A1AC8E /* AddVariableView.swift */; };
+		AD55DC1300A526A8E5DE5623 /* ScreenshotSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCBBAD52CD08E38B7CF376 /* ScreenshotSeed.swift */; };
 		AFD355F7C66F411475607D9B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49911EE01D0FAF1FE0C7D93C /* OnboardingView.swift */; };
 		B3F638DE3182796009B9A335 /* AppGroupBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDE322440BB52FE9BE3309 /* AppGroupBridge.swift */; };
 		B5A646BA1B715508D188E8F8 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF4F28A912A41E3965BD27 /* Category.swift */; };
@@ -155,6 +156,7 @@
 		CD0CDCA638F86AFB42A0C4D1 /* VoiceRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecognizer.swift; sourceTree = "<group>"; };
 		CEF4CA522C4E81C55CB7A5E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8983D3A52B6AF005EAB5E8A /* DisambiguationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationView.swift; sourceTree = "<group>"; };
+		DECCBBAD52CD08E38B7CF376 /* ScreenshotSeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotSeed.swift; sourceTree = "<group>"; };
 		E6BFB6A7C19447B53433559F /* QuickVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickVar.swift; sourceTree = "<group>"; };
 		E9BFE171BF60423A2C784411 /* EditVariableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVariableView.swift; sourceTree = "<group>"; };
 		E9C0B0924CD49C7A63248F19 /* QuickVarsWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickVarsWidgetsBundle.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				45B5C0B6CDA6A563D6DB22F8 /* AppSwitcherOverlay.swift */,
 				7B9A54A24168CE4AC50A72F1 /* QuickVarsApp.swift */,
 				1C88FDAC3BE3B02ECAED52E0 /* RootView.swift */,
+				DECCBBAD52CD08E38B7CF376 /* ScreenshotSeed.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				B8F542EC0F21902E08B9139E /* RestoreBackupView.swift in Sources */,
 				9DDEC0A0349C01E79C9F6A83 /* RevealView.swift in Sources */,
 				1B5E2FAB76E203FB7CC9C2ED /* RootView.swift in Sources */,
+				AD55DC1300A526A8E5DE5623 /* ScreenshotSeed.swift in Sources */,
 				1A3A66124A9D6A6B52688195 /* SecurityInfoView.swift in Sources */,
 				1A8B5C05652AB3330C5FBA32 /* SessionManager.swift in Sources */,
 				5CDC5AE6CDA3DD446F0E0DB1 /* SettingsView.swift in Sources */,
@@ -703,7 +707,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.QuickVars.widgets;
 				PRODUCT_NAME = QuickVarsWidgets;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -843,7 +847,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.QuickVars.widgets;
 				PRODUCT_NAME = QuickVarsWidgets;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -860,9 +864,9 @@
 				INFOPLIST_FILE = QuickVarsWatch/Info.plist;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.QuickVars.watchkitapp;
-				PRODUCT_NAME = QuickVars;
+				PRODUCT_NAME = QuickVarsWatch;
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -880,9 +884,9 @@
 				INFOPLIST_FILE = QuickVarsWatch/Info.plist;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhansari.QuickVars.watchkitapp;
-				PRODUCT_NAME = QuickVars;
+				PRODUCT_NAME = QuickVarsWatch;
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;

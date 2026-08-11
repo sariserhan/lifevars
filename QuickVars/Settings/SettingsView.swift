@@ -119,5 +119,15 @@ struct SettingsView: View {
         .sheet(isPresented: $isShowingRestoreBackup) {
             RestoreBackupView()
         }
+        // ponytail: screenshot tooling only (ScreenshotSeed.swift) — opens
+        // the paywall for the IAP review screenshot instead of an automated
+        // tap. No-op unless launched with -ASOScreenshotSeed -ASOScreenshotScreen paywall.
+        #if DEBUG
+        .onAppear {
+            if ScreenshotSeed.isActive, ScreenshotSeed.screen == "paywall" {
+                isShowingPaywall = true
+            }
+        }
+        #endif
     }
 }

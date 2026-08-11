@@ -77,13 +77,13 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.serhansari.QuickVars.watchkitapp
-        PRODUCT_NAME: QuickVars
+        PRODUCT_NAME: QuickVarsWatch
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "4"
         GENERATE_INFOPLIST_FILE: NO
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
-        SKIP_INSTALL: NO
+        SKIP_INSTALL: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         DEVELOPMENT_TEAM: BA24C6W48D
         CODE_SIGN_STYLE: Automatic
@@ -117,7 +117,7 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
-        SKIP_INSTALL: NO
+        SKIP_INSTALL: YES
         DEVELOPMENT_TEAM: BA24C6W48D
         CODE_SIGN_STYLE: Automatic
 
@@ -129,3 +129,6 @@ schemes:
     run:
       config: Debug
       storeKitConfiguration: QuickVars.storekit
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true

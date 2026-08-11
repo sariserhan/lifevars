@@ -10,9 +10,20 @@ struct HomeView: View {
     @AppStorage(UserSettings.Keys.hasSeenFirstQuickVarPrompt) private var hasSeenFirstPrompt = false
     @State private var firstPromptName = ""
 
+    /// A single Identifiable payload rather than a Bool + separate optional
+    /// prefill fields — `.sheet(item:)` snapshots this atomically at
+    /// presentation time, so a caller that sets name/value/expiresAt in the
+    /// same breath as presenting (the screenshot hook below, or a future
+    /// caller) can't race the boolean toggle and get a stale/empty sheet.
+    private struct AddDraft: Identifiable {
+        let id = UUID()
+        var name: String?
+        var value: String?
+        var expiresAt: Date?
+    }
+
     @State private var searchText = ""
-    @State private var isAdding = false
-    @State private var addPrefillName: String?
+    @State private var addingDraft: AddDraft?
     @State private var editingItem: DecryptedIndexEntry?
     @State private var revealingItem: DecryptedIndexEntry?
     @State private var disambiguation: DisambiguationQuery?
@@ -41,8 +52,7 @@ struct HomeView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        addPrefillName = nil
-                        isAdding = true
+                        addingDraft = AddDraft()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -59,8 +69,8 @@ struct HomeView: View {
         .sheet(isPresented: $isShowingSettings) {
             SettingsView()
         }
-        .sheet(isPresented: $isAdding) {
-            AddVariableView(prefillName: addPrefillName)
+        .sheet(item: $addingDraft) { draft in
+            AddVariableView(prefillName: draft.name, prefillValue: draft.value, prefillExpiresAt: draft.expiresAt)
         }
         .sheet(item: $editingItem) { item in
             EditVariableView(item: item)
@@ -225,6 +235,26 @@ struct HomeView: View {
         checkPendingSiriQuery()
         checkPendingReveal()
         checkPendingVoiceActivation()
+        checkScreenshotAddScreen()
+    }
+
+    // ponytail: screenshot tooling only (ScreenshotSeed.swift) — opens
+    // Add/Edit pre-filled instead of driving fragile UI-automation taps.
+    // No-op unless launched with -ASOScreenshotSeed.
+    private func checkScreenshotAddScreen() {
+        #if DEBUG
+        guard ScreenshotSeed.isActive, addingDraft == nil else { return }
+        switch ScreenshotSeed.screen {
+        case "addvalue":
+            addingDraft = AddDraft(name: "Bank Account Number", value: "8842-1090-3345")
+        case "expiration":
+            addingDraft = AddDraft(name: "Travel Document Renewal", value: "TD-5510273", expiresAt: Date().addingTimeInterval(60 * 60 * 24 * 45))
+        case "paywall":
+            isShowingSettings = true
+        default:
+            break
+        }
+        #endif
     }
 
     private func checkPendingSiriQuery() {
@@ -286,8 +316,7 @@ struct HomeView: View {
             Text("No match for \u{201C}\(searchText)\u{201D}")
                 .foregroundStyle(.secondary)
             Button("Save \u{201C}\(searchText)\u{201D} as new") {
-                addPrefillName = searchText
-                isAdding = true
+                addingDraft = AddDraft(name: searchText)
             }
             .buttonStyle(.borderedProminent)
             Spacer()
@@ -309,8 +338,7 @@ struct HomeView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
             Button("Add a QuickVar") {
-                addPrefillName = nil
-                isAdding = true
+                addingDraft = AddDraft()
             }
             .buttonStyle(.borderedProminent)
         }
@@ -342,7 +370,6 @@ struct HomeView: View {
     private func startAddingFromPrompt() {
         guard !firstPromptName.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         hasSeenFirstPrompt = true
-        addPrefillName = firstPromptName
-        isAdding = true
+        addingDraft = AddDraft(name: firstPromptName)
     }
 }

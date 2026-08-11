@@ -62,6 +62,16 @@ struct LockScreenView: View {
         .sheet(isPresented: $isShowingEmergencyAccess) {
             EmergencyAccessView()
         }
+        // ponytail: screenshot tooling only (ScreenshotSeed.swift) — jumps
+        // straight to Emergency Info instead of an automated tap. No-op
+        // unless launched with -ASOScreenshotSeed -ASOScreenshotScreen emergency.
+        #if DEBUG
+        .onAppear {
+            if ScreenshotSeed.isActive, ScreenshotSeed.screen == "emergency" {
+                isShowingEmergencyAccess = true
+            }
+        }
+        #endif
     }
 
     private func attemptUnlock() {
