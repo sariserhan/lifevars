@@ -35,6 +35,7 @@ targets:
         NSFaceIDUsageDescription: "QuickVars uses Face ID to protect the details you save."
         NSMicrophoneUsageDescription: "QuickVars uses your microphone so you can ask for a saved detail by voice."
         NSSpeechRecognitionUsageDescription: "QuickVars transcribes your voice on-device to find what you asked for."
+        ITSAppUsesNonExemptEncryption: false
         CFBundleURLTypes:
           - CFBundleURLSchemes:
               - quickvars
