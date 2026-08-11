@@ -107,7 +107,7 @@ private struct SecurityPage: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
-            Text("That cuts both ways: losing this device means losing your LifeVars until backup ships.")
+            Text("That cuts both ways: losing this device means losing your LifeVars — unless you've made your own encrypted, password-protected backup (Settings → Backup).")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

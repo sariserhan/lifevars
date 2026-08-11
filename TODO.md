@@ -140,3 +140,6 @@ Features added after the original 16-step plan closed out, in response to direct
   - New `Settings/ExportBackupView.swift` (password + confirm → `ShareLink` to save the resulting `.lifevarsbackup` file anywhere) and `Settings/RestoreBackupView.swift` (`.fileImporter` → password → restore), both gated behind Pro from a new "Backup" section in Settings.
   - Verified: all three schemes (`LifeVars`, `LifeVarsWatch`, `LifeVarsWidgets`) build clean.
   - **Not yet verified live**: a full export → reinstall/wipe → restore round-trip hasn't been exercised on-device yet — that's the real test of whether this actually works, not just that it compiles.
+- [x] **Onboarding reflects that backup now exists** — the Security page's caveat literally said "until backup ships"; now that it has, updated it to name the actual mitigation ("unless you've made your own encrypted, password-protected backup — Settings → Backup") instead of adding a whole separate onboarding page for a Pro feature there's no data yet to use it on during onboarding itself.
+  - Verified: `LifeVars` scheme builds clean.
+  - **Not yet verified live**: not yet visually walked through.
